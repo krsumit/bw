@@ -1,0 +1,130 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div class="wrapper" id="main_quote_div">
+        <!-- .with-sidebar / .with-sidebar-both / .with-middle -->
+        <!-- BEGIN .content-main -->
+        <div class="content-main with-sidebar left">
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block url-changer" id="recent_quotes_data_{{quote_detail.quote_id}}" data-page-id="{{quote_detail.quote_id}}" data-url="/quotes/{{quote_author_name_for_url}}-{{quote_detail.quote_id}}/?nx_ar={{next_quote.quote_id}}" data-title="{{meta_title}}" data-meta-description="{{meta_description}}" data-meta-keyword="{{meta_keyword}}" data-og-title="{{og_title}}" data-og-url="{{og_url}}" data-og-image="{{og_image}}">
+                <div class="block-title">
+                    <h2>{{quote_detail.quote_author_name_for_display}}</h2>
+                </div>
+
+                <div class="main-article">
+                            	
+                    <div class="about-author" style="margin-top:0 !important; padding-bottom:0px !important;">
+                                    <div class="about-content" style="margin-left:0px !important;">
+
+                                        <p><b>{{quote_detail.quote_description}}</b></p>
+
+                                    </div>
+                                    <!-- Start of addthis side sharing code -->
+                                    <div class="addthis_sharing_toolbox" style="text-align: center;"></div>
+                                    <!-- End of addthis side sharing code -->
+                        <!-- Slides Container -->
+                                    <div u="slides" style="cursor: move;  width: 870px; height: auto; overflow: hidden; text-align: center; margin: 5px 0">
+                                   
+                                        <img u="image" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{QUOTES_IMAGE_PATH}}{{quote_detail.quotes_image}}" style=""/>
+                                        <!--<img u="thumb" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{images.photopath}}"/>-->
+                                    
+                                    </div>
+                       
+                                    <!-- Start of addthis side sharing code -->
+                                    <div class="addthis_sharing_toolbox" style="text-align: center;"></div>
+                                    <!-- End of addthis side sharing code -->
+                    </div>
+                    <div class="tag-cloud" style="margin-top:20px !important;">
+                        {% for tag_detail in quote_tags %}
+                            <a href="#">{{tag_detail.tag}}</a>
+                        {% endfor %}
+
+                    </div>
+                    <!-- BEGIN .strict-block -->
+                    <div class="strict-block">
+                        <div class="main-banner" style="height:90px !important;">
+                            <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                            <!-- Ad Slot 4 tag: -->
+                            <!-- begin ZEDO for channel: ROS_	Business World (NEW), Publisher: Businessworld, Ad Dimension: Supper Banner - Secondary-728x90 -->
+                            <div id="zt_405558_4" style="display:show">
+                                <script id="zt_405558_4" language="javascript">
+                                if(typeof zmt_mtag !='undefined' && typeof zmt_mtag.zmt_render_placement !='undefined')
+                                {
+                                    zmt_mtag.zmt_render_placement(p405558_4);
+                                }
+                                </script>
+                            </div>
+                            <!-- end ZEDO for channel:  ROS_	Business World (NEW), Publisher: Businessworld, Ad Dimension: Supper Banner - Secondary-728x90 -->
+                        </div>
+                        <!-- END .strict-block -->
+                    </div>
+
+                    <!-- END .strict-block -->
+                </div>
+
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h2>Around The World</h2>
+                        <!--<a href="" class="panel-title-right">View all posts</a>-->
+                    </div>
+                    <!-- BEGIN .block-content -->
+                    <div class="block-content item-block-1 split-stuff">
+                        <!-- Out Brain Code -->
+                        <div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="BusinessWorld"></div>
+                        <script type="text/javascript" src="http://widgets.outbrain.com/outbrain.js"></script>
+                        <!-- End -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+                <!-- END .strict-block -->
+            </div>
+
+        <!-- END .content-main -->
+        </div>
+
+        <!-- BEGIN #sidebar -->
+        {% include 'base/small_sidebar.html' %}
+        <!-- END .wrapper -->
+    </div>
+<div class="wrapper">
+
+    <!-- BEGIN .content-main -->
+    <div class="content-main">
+
+        <!-- BEGIN .strict-block -->
+        <div class="strict-block">
+            
+            <!-- BEGIN .block-content -->
+            <div class="block-content item-block-1 split-stuff blocks-3">
+                {% for quote_listings in quote_listing %}
+                <div class="item-block">
+                    <div class="item-header">
+
+                        <a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}" class="item-photo"><img class="aspect-px lazy"  data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{QUOTES_IMAGE_PATH}}{{quote_listings.quotes_image}}"  alt="" /></a>
+                    </div>
+                    <div class="item-content">
+                        <h3><a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}">{{quote_listings.quote_description}}</a></h3>
+                        <div class="item-author">
+                            <a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}" class="author-photo"><img src="/static/images/avatar-1.jpg" alt="" /></a>
+                            <a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}" class="author-name">{{quote_listings.tag}}</a>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+
+
+
+
+
+                <!-- END .block-content -->
+            </div>
+            <!-- END .strict-block -->
+        </div>
+
+        <!-- END .content-main -->
+    </div>
+
+    <!-- END .wrapper -->
+</div>
+    
+    
+{% endblock %}

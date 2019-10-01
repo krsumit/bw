@@ -1,0 +1,239 @@
+{% extends 'homepage/onepage_header.html' %}
+	{% block main %}
+    	<!-- BEGIN .content -->
+        {% load messages_tags %}
+        {% load humanize %}
+        <!-- BEGIN .column9 -->
+		<div class="column9">
+			
+			<div class="strict-block">
+				<div class="block-title">
+					<h2>Corner Side</h2>
+				</div>
+				<!-- END .strict-block -->
+			</div>
+
+			<div class="paragraph-row" style="background: #f1c40f;">
+				{% for recent_important_articles in recent_important_article %}					
+				<div class="column7">
+
+					<!-- BEGIN .article-double-main -->
+					<div class="article-double-main">
+
+						<div class="item-photo" style="margin-bottom: 0;">
+							<a href="{{recent_important_articles.get_absolute_url}}"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{recent_important_articles.photopath}}" alt="{{recent_important_articles.article_title}}" /></a>
+						</div>
+					</div>
+				</div>
+				<div class="column5">
+					<!-- BEGIN .article-double-main -->
+					<div class="article-double-main">
+						<div class="item-content" style="margin-top: 10px;">
+							<h3><a href="{{recent_important_articles.get_absolute_url}}" style="font-size: 38px !important;">{{recent_important_articles.article_title}}</a></h3>
+														
+							<p>{{recent_important_articles.article_summary|slice:":300"}}...</p>
+						</div>
+													
+					</div>
+
+				</div>
+				{%endfor%}
+			</div>
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block">
+				<div class="block-title">
+					<h2>World</h2>
+				</div>
+				<!-- BEGIN .block-content -->
+				<div class="block-content item-block-1 split-stuff blocks-3">
+					 {% for recent_article in recent_articles %}
+					<div class="item-block">
+						<div class="item-header">
+							 <a href="/category/{{recent_article.category_name.split|join:"-"}}-{{recent_article.category_id}}" class="item-category">{{recent_article.category_name}}</a>
+							<a href="{{recent_article.get_absolute_url}}" class="item-photo"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{recent_article.photopath}}" title="{{recent_article.article_title}}"/></a>
+						</div>
+						<div class="item-content">
+							 <h3><a href="{{recent_article.get_absolute_url}}">{{recent_article.article_title}}</a></h3>
+							<p>{{recent_article.article_summary|slice:":300"}}...</p>
+												
+						</div>
+					</div>
+					{%endfor%}
+				<!-- END .block-content -->
+				</div>
+			<!-- END .strict-block -->
+			</div>
+			<!--<div class="strict-block">
+				<div class="block-title">
+					<h2>Corner Side</h2>
+				</div>
+			<!-- END .strict-block 
+			</div>	
+			<div class="paragraph-row" >
+				<div class="column12">
+											
+					<!-- BEGIN .article-double-main 
+					<div class="article-double-main">
+
+						<div class="item-photo" style="margin-bottom: 0;">
+							<a href="#"><img src="http://static.businessworld.in/article/article_extra_large_image/1521183381_VzZBVE_shutterstock_280837736.jpg" alt=""></a>
+						</div>
+													
+						<div class="item-content" style="margin-top: 10px;">
+							<h3 style="color: #000;"><a href="href="{{recent_article.get_absolute_url}}" style="font-size: 2em; line-height: 1.2em;">{{recent_article.article_title}}
+
+							</a></h3>
+														
+							<p>The design industry in India has rapidly evolved from being a highly unstructured ecosystem in the 90s to a more active and growing sector today. The design industry in India has rapidly evolved from being a highly unstructured ecosystem in the 90s to a more active and growing sector today...  </p>
+														
+														
+						</div>
+
+					<!-- END .article-double-main 
+					</div>
+											
+				</div>
+			</div>
+			<!-- BEGIN .strict-block 
+			<div class="strict-block">
+				<div class="block-title">
+					<h2>World</h2>
+				</div>
+				<!-- BEGIN .block-content
+				<div class="block-content item-block-1 split-stuff blocks-3">
+
+					<div class="item-block">
+						<div class="item-header">
+							<a href="#" class="item-category">Body &amp; Soul</a>
+							<a href="" class="item-photo"><img src="http://static.businessworld.in/article/article_extra_large_image/1468203581_fgBrGs_yoga1.jpg" alt="" /></a>
+						</div>
+						<div class="item-content">
+							<h3><a href="">What to Expect in 2018 in Beauty and design Industry?</a></h3>
+							<p>The organic personal care market is a place where science meets nature. A trend which originally started in the western markets is now picking up momentum in the Indian market as well...</p>
+												
+						</div>
+					</div>
+
+				<!-- END .block-content -
+				</div>
+			<!-- END .strict-block 
+			</div>
+			<div class="strict-block">
+				<div class="block-title">
+					<h2>Corner Side</h2>
+				</div>
+			<!-- END .strict-block 
+			</div>	
+			<div class="paragraph-row" >
+				<div class="column12">
+											
+					<!-- BEGIN .article-double-main 
+					<div class="article-double-main">
+
+						<div class="item-photo" style="margin-bottom: 0;">
+							<a href="#"><img src="http://static.businessworld.in/article/article_extra_large_image/1521183381_VzZBVE_shutterstock_280837736.jpg" alt=""></a>
+						</div>
+													
+						<div class="item-content" style="margin-top: 10px;">
+							<h3 style="color: #000;"><a href="#" style="font-size: 2em; line-height: 1.2em;">Design Industry In India: What Does The Future Hold?</a></h3>
+														
+							<p>The design industry in India has rapidly evolved from being a highly unstructured ecosystem in the 90s to a more active and growing sector today. The design industry in India has rapidly evolved from being a highly unstructured ecosystem in the 90s to a more active and growing sector today...  </p>
+														
+														
+						</div>
+
+					<!-- END .article-double-main 
+					</div>
+											
+				</div>
+			</div>	-->									
+		</div>
+			<div class="column3">
+				<!--style="background-image:url(images/quote-background685x353.png); background-size:100% 100%; background-repeat: no-repeat;"-->
+				<div class="strict-block">
+					<div class="block-title">
+						<h2>right side</h2>
+					</div>
+				<!-- END .strict-block -->
+				</div>
+								
+				<div class="widget">
+					<!--ad goes here-->
+					<img src="http://d13.zedo.com/OzoDB/b/j/2894293/V1/FDA_Event_300x250.jpg" alt="advertisement"/>
+					<!--ad end here-->
+				</div>
+				<div class="strict-block">
+					&nbsp;
+					<!-- END .strict-block -->
+				</div>
+								
+				<div class="widget" style="background:rgba(0,0,0,1.00); margin: 0 auto; text-align: center;">
+												
+					<h3 style="padding:15px 0; color: #FFF; font-weight: lighter;">Quick Connect With BW Wellness</h3>
+					<div style="padding:0 0 15px 0; ">
+						<div class="socialize-tool">
+							<a href="#" class="socialize-icon facebook">
+								<i class="fa fa-facebook"></i>
+								<span>3.2k</span>
+							</a>
+							<a href="#" class="socialize-icon twitter">
+								<i class="fa fa-twitter"></i>
+								<span>1.1k</span>
+							</a>
+							<a href="#" class="socialize-icon google">
+								<i class="fa fa-google-plus"></i>
+								<span>300</span>
+							</a>
+							<a href="#" class="socialize-icon linkedin">
+								<i class="fa fa-linkedin"></i>
+								<span>700</span>
+							</a>
+						</div>
+														
+					</div>
+													
+					<h3 style="padding:15px 0; color: #FFF; font-weight: lighter;">Subscribe Our Newsletter</h3>
+					<div>
+						<div class="subscribe-feed">
+							<form action="#">
+								<p><input value="" placeholder="Your name" type="text"></p>
+								<p><input value="" placeholder="Your e-mail" type="text"></p>
+								<p><input style="background: #006699 !important;" value="Subscribe" type="submit"></p>
+							</form>
+						</div>
+						</br>
+					</div>
+													
+				</div>
+				<div class="strict-block">
+					<div class="block-title">
+						<h2>Must Read</h2>
+					</div>
+					<!-- BEGIN .block-content -->
+					<!-- BEGIN .block-content -->
+					<div class="blog-style" style="margin-top: 10px;">
+
+
+						<div class="item image-no">
+							<div class="item-content">
+								<h4 style="font-size: 20px; font-weight: lighter; color: #000;"><a href="">Earlier Govts Failed To Fulfil Household Electrification Promise: PM</a></h4>
+
+								<p>"Earlier governments made promises, which they failed to fulfil. Then Congress President said all households would be electrified by 2009...</p>
+
+							</div>
+							<div class="clear-float"></div>
+						</div>
+
+					<!-- END .block-content -->
+					</div>
+				<!-- END .strict-block -->
+				</div>			
+				<div class="widget">
+					<!--ad goes here-->
+					<img src="https://s3.envato.com/files/132487449/ScreenShots/300x600.png" alt="advertisement"/>
+					<!--ad end here-->
+				</div>			
+							
+			</div>	
+										
+	{% endblock %}

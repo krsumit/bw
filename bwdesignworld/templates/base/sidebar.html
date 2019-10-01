@@ -1,0 +1,77 @@
+{% block sidebar %}
+    <div class="column4" >
+        <div class="widget" style="text-align: center;">							
+        <!-- /95119545/BWWellness_ROS_Medium_Rectangle -->
+            <div id='div-gpt-ad-1534756674059-0' style='height:250px; width:300px;'>
+            <script>
+            googletag.cmd.push(function() { googletag.display('div-gpt-ad-1534756674059-0'); });
+            </script>
+            </div>
+        </div>
+
+        <div class="strict-block">
+                <div class="block-title">
+                        <h2>Recent</h2>
+                </div>
+                <!-- BEGIN .block-content -->
+                <!-- BEGIN .block-content -->
+                <div class="blog-style" style="margin-top: 10px;">
+
+                         {% for articles in sidebar_recent_articles %}
+                        <div class="item image-no">
+                                <div class="item-content">
+                                        <h4 style="font-size: 20px; font-weight: lighter; color: #000;"><a href="/article/{{articles.title_for_url|urlencode}}/{{articles.article_published_date|date:'d-m-Y'}}-{{articles.article_id}}">{{articles.article_title}}</a></h4>
+
+                                        <p>{{articles.article_summary|slice:":150"}}...</p>
+
+                                </div>
+                                <div class="clear-float"></div>
+                        </div>
+                        {% endfor %}
+             <!-- END .block-content -->
+                </div>
+        <!-- END .strict-block -->
+        </div>
+
+        <br>
+        <div class="widget" style="background:rgba(0,0,0,1.00); margin: 0 auto; text-align: center;">
+                <h3 style="padding:15px 0; color: #FFF; font-weight: lighter;">Quick Connect With BW Wellness</h3>
+                <div style="padding:0 0 15px 0; ">
+                        <div class="socialize-tool">
+                                <a href="https://www.facebook.com/bwwellbeing" class="socialize-icon facebook" target="blank">
+                                        <i class="fa fa-facebook"></i>
+                                        
+                                </a>
+                                <a href="https://twitter.com/BW_Wellbeing" class="socialize-icon twitter" target="blank">
+                                        <i class="fa fa-twitter"></i>
+                                        
+                                </a>
+				
+                                <a href="http://www.youtube.com/user/bwbusinessworld?sub_confirmation=1" class="socialize-icon google" target="blank">
+                                        <i class="fa fa-youtube"></i>
+                                        
+                                </a>
+                                <a href="https://www.linkedin.com/company/bwbusinessworld/" class="socialize-icon linkedin" target="blank">
+                                        <i class="fa fa-linkedin"></i>
+                                        
+                                </a>
+                        </div>
+
+                </div>
+
+                <h3 style="padding:15px 0; color: #FFF; font-weight: lighter;">Subscribe Our Newsletter</h3>
+                <div>
+                        <div class="subscribe-feed">
+                                <form  method="post" id="newsletter_form" >
+                                        {% csrf_token %}  
+                                            <input type="hidden" name="newsletter_type_id" value="1">
+                                            <p><input value="" placeholder="Your e-mail" type="text" name="subscriber_email_id" id="subscriber_email_id" required></p>
+                                            <p><input value="Subscribe Now" type="submit" id="newsletter_submit"></p>
+                                        </form>
+                        </div>
+                        </br>
+                </div>
+
+        </div>
+</div>
+{% endblock %}

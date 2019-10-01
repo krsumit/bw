@@ -1,0 +1,98 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div class="wrapper">
+        <!-- BEGIN .content-main -->
+        <div class="content-main with-sidebar left">
+            {% if query %}
+
+            <!-- Article Search list -->
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <h3 style="margin-bottom:5px;"><a href="#">You searched for: {{ query }}</a></h3>
+                    <div class="block-title">
+                        <h2>Search Results In Article For {{ query }}</h2>
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <!-- BEGIN .block-content -->
+                    <div class="blog-style">
+                        {% for result in articles %}
+                            <div class="item {% if result.object.get_listing_image %} image-small {% else %} image-no {% endif %}">
+                                {% if result.object.get_listing_image %}
+                                    <div class="item-header">
+                                        <a href="{{ result.object.get_absolute_url }}" class="item-photo">
+                                            <img data-original="{{result.object.get_listing_image}}" alt="" class="lazy" width="100%"/>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                <div class="item-content">
+                                    <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.article_title }}</a></h3>
+                                    <div class="item-icons">
+                                        <a href="{{result.object.get_article_author_url}}">
+                                            <i class="fa fa-user"></i>{{result.object.get_article_author_name}}
+                                        </a>
+                                    </div>
+
+                                    <div class="item-icons">
+                                        {% autoescape off %}
+                                            {{result.object.get_article_category_data}}
+                                        {% endautoescape %}
+                                    </div>
+
+                                    <p>{{ result.object.article_summary }}</p>
+                                    <a href="{{ result.object.get_absolute_url }}" class="trans-button">
+                                        <i class="fa fa-align-right"></i>Read More
+                                    </a>
+                                </div>
+                                <div class="clear-float"></div>
+                            </div>
+                        {% empty %}
+                            <div class="coloralert" style="background-color:#b83827;">
+                                <p>Sorry! We did not find any result for your search term in this Segment.</p>
+                            </div>
+                        {% endfor %}
+
+
+
+                        <!-- Pagination -->
+                        <!--{% if articles.has_previous or articles.has_next %}
+                        <div class="pagination">
+                            {% if articles.has_previous %}<a href="?q={{ query }}&amp;page={{ articles.previous_page_number }}" class="prev page-numbers">{% endif %}<i class="fa fa-caret-left"></i>{% if articles.has_previous %}</a>{% endif %}
+
+                            {% if show_first %}
+                                <a href="?q={{ query }}&amp;page=1" class="page-numbers">1</a>
+                                <span class="page-numbers">...</span>
+                            {% endif %}
+
+                            {% for page in page_numbers %}
+                                {% if forloop.counter != 1 %} | {% endif %}
+                                <a href="?q={{ query }}&amp;page={{page}}" class="page-numbers {% if page == articles.number %} current {% endif %}">{{ page }}</a>
+                            {% endfor %}
+
+                            {% if show_last %}
+                                <span class="page-numbers">...</span>
+                                <a href="?q={{ query }}&amp;page=last" class="page-numbers">{{ last_page }}</a>
+                            {% endif %}
+
+                            {% if articles.has_next %}<a href="?q={{ query }}&amp;page={{ articles.next_page_number }}" class="next page-numbers">{% endif %}<i class="fa fa-caret-right"></i>{% if articles.has_next %}</a>{% endif %}
+                        </div>
+                        {% endif %}-->
+                        <!-- End -->
+
+                        <!-- END .block-content -->
+                    </div>
+                    <!-- END .strict-block -->
+                </div>
+                <!-- End of Article search list -->
+            {% endif %}
+        </div>
+
+        <!-- BEGIN #sidebar -->
+        {% include 'base/sidebar.html' %}
+
+    <!-- END .wrapper -->
+    </div>
+{% endblock %}

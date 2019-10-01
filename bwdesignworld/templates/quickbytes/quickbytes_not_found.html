@@ -1,0 +1,46 @@
+{% extends 'base/header.html' %}
+{% block main %}
+				
+	<!-- BEGIN .wrapper -->
+	<div class="wrapper">
+
+		<!-- BEGIN .content-main -->
+		<div class="content-main">
+
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block">
+				<!-- BEGIN .block-content -->
+				<div class="error-big-message" style="margin:50px 0; background-image:url({{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/white_error_background.jpg); background-size:1200px 400px;">
+					<h1>Quickbyte Not Found</h1>
+					<!--<h2>Page Not Found</h2><br>-->
+					<h3>Search your Query here...</h3><br>
+
+					<div class="header-2-content" style="width:500px; padding-top: 0px ! important; background-color: #ccc; margin:0 auto; border-radius: 5px; padding:0 !important;">
+
+						<div class="header-search">
+							<form action=" /search/quickbytes " id="search_form">
+
+								<input placeholder="Search " name="q" id="search_keyword" value="" style="width:80%; float:left; margin:10px !important;" type="text">
+								<button type="button" style="float:left; margin:14px 0 !important;" onclick="javascript:check_query_keyword();">
+									<i class="fa fa-search" style="float:left; color:#333 !important; right:20px; font-size:14px !important; position:static !important; margin-top:0 !important; display:block !important;"></i>
+								</button>
+								<p style="padding: 0px; font-size: 12px; float: left; color: red; margin: -5px 10px 5px; display:none" id="search_error_msg">Please enter a search keyword</p>
+							</form>
+
+						</div>
+					</div>
+					<br><br>
+					<p style="font-size:24px; color:#2E2E2E">Something has gone wrong and we could not trace the quickbyte you are looking for. Requesting you to search with a new set of keywords.</p>
+					<a href="index.html"><i class="fa fa-home"></i>Back to Homepage</a>
+
+				<!-- END .block-content -->
+				</div>
+			<!-- END .strict-block -->
+			</div>
+
+		<!-- END .content-main -->
+		</div>
+
+	<!-- END .wrapper -->
+	</div>
+{% endblock %}

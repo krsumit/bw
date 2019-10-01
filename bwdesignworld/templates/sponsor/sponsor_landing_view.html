@@ -1,0 +1,126 @@
+{% extends 'base/header.html' %}
+{% block main %}
+	<!-- BEGIN .wrapper -->
+	<div class="wrapper">
+		<!-- .with-sidebar / .with-sidebar-both / .with-middle -->
+		<!-- BEGIN .content-main -->
+		<div class="content-main with-sidebar left">
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block">
+                <div class="main-article">
+                    <h1>{{sponsoredposts_detail.sponsoredposts_title}}</h1>
+
+					<!-- Start of addthis side sharing code -->
+                    <div class="addthis_sharing_toolbox"></div>
+                    <!-- End of addthis side sharing code -->
+
+					<p><i>{{sponsoredposts_detail.sponsoredposts_summary}}</i></p>
+
+					<div class="article-header">
+                        {% if sponsoredposts_detail.image_url %}
+						<img data-original="{{article_detail.image_url}}" class="article-photo" alt="" class="lazy"/>
+                        {% else %}
+                        <img data-original="images/photos/image-50.jpg" class="article-photo" alt="" class="lazy"/>
+                        {% endif %}
+
+					</div>
+                    {% autoescape off %}
+                        <div>
+                            <p>{{sponsoredposts_description}}</p>
+					    </div>
+                    {% endautoescape %}
+
+                 <div class="secondary_author">
+                    {% for author in author_details %}
+                        {% if author.author_id != author_details.0.author_id %}
+                        <span>{{author.author_name}}, </span>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+
+                    <div class="social-article">
+						<div class="custom-title"><strong>Share this article:</strong></div>
+                        <!-- Start of addthis side sharing code -->
+                        <div class="addthis_sharing_toolbox"></div>
+                        <!-- End of addthis side sharing code -->
+					</div>
+                    <div>{{article_detail.magzine_issue_name}}</div>
+
+					<hr />
+
+					<div class="tag-cloud">
+						<div class="custom-title"><strong>Tags assigned to this article:</strong></div>
+                        {% for tag in article_tags %}
+                        <a href="/tags/{{tag.title_for_url|urlencode}}-{{tag.tag_id}}/">{{tag.tag_name}}</a>
+                        {% endfor %}
+					</div>
+
+					<hr />
+				</div>
+
+			<!-- END .strict-block -->
+			</div>
+
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block">
+				<div class="main-banner" style="height:90px !important;">
+                    <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+			<!-- Ad Slot 4 tag: --> 
+                        <!-- begin ZEDO for channel: ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                        <div id="zt_249046_4" style="display:show"> 
+                        <script id="zt_249046_4" language="javascript"> 
+
+                       if(typeof zmt_mtag !='undefined' && typeof zmt_mtag.zmt_render_placement !='undefined')
+                       {
+                            zmt_mtag.zmt_render_placement(p249046_4);
+                       }
+                        </script>
+                        </div>
+                        <!-- end ZEDO for channel:  ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+				</div>
+				<!-- END .strict-block -->
+			</div>
+
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block">
+				<div class="block-title">
+					<h2>Around The World</h2>
+
+				</div>
+				<!-- BEGIN .block-content -->
+				<div class="block-content item-block-1 split-stuff">
+					<!-- Out Brain Code -->
+					<div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="BusinessWorld"></div>
+					<script type="text/javascript" src="http://widgets.outbrain.com/outbrain.js"></script>
+					<!-- End -->
+				</div>
+			<!-- END .strict-block -->
+			</div>
+
+			<!-- BEGIN .strict-block -->
+            <!--<div class="strict-block">
+                <div class="block-title">
+                    <h2>Our Publications</h2>
+
+                </div>
+                <!-- BEGIN .block-content -->
+                <!--<div class="block-content item-block-2 split-stuff blocks-3">
+                    <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/our_pub_banner.jpg" width="100%"/>
+                        <a href="http://subscribe.businessworld.in">
+                            <input value="Subscribe To Print Copies" type="submit">
+                        </a>
+                        <a href="http://www.magzter.com/publishers/GBN-Media-Pvt-Ltd">
+                            <input value="Subscribe To Digital Copies" style="margin-top:5px;" type="submit">
+                        </a>
+                </div>
+                <!-- END .block-content -->
+            <!--</div>-->
+  
+		</div>
+
+		<!-- BEGIN #sidebar -->
+		{% include 'base/sidebar.html' %}
+
+	<!-- END .wrapper -->
+	</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div class="wrapper">
+        <div class="content-main">
+            <div class="strict-block">
+                <form  method="post" id="reportedate" >
+                    {% csrf_token %}
+                    <input id="panelSearch" required  placeholder="from"  type="text" name="fromdate">
+                    <input id="panelSearch" required  placeholder="to"  type="text" name="todate">
+                    <input id="dynamic_dta" type="submit" value="submit" >
+                </form>
+                {% for  reporters_views in reporters_view %}
+                    <ul>
+                        <li>{{ reporters_views.article_title }}</li>
+                        <li>{{ reporters_views.author_name }}</li>
+                        <li>{{reporters_views.viewcount}}</li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(window).load(function(){
+            $('#dynamic_dta').click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "/reports-generatorajax/",
+                    type: "post",
+                    data : $('#reportedate').serialize(),
+                    success: function (response) {
+                        //alert(response)
+                        $('.photo-gallery-grid').html(response);
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

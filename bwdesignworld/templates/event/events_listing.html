@@ -1,0 +1,55 @@
+{% extends 'base/header.html' %}
+{% block main %}
+
+<div class="wrapper">
+
+    <!-- BEGIN .content-main -->
+    <div class="content-main">
+
+        <!-- BEGIN .strict-block -->
+        <div class="strict-block">
+            <div class="block-title">
+                <h2>Web Events Listing </h2>
+            </div>
+            <!-- BEGIN .block-content -->
+            <div style="text-align: center;" id="item-block">
+                    <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/loading_horizontal.gif" alt="Loading content" style="margin:5% 0;"/>
+                <!-- END .block-content -->
+            </div>
+            <!-- END .strict-block -->
+        </div>
+
+        <!-- END .content-main -->
+    </div>
+
+    <!-- END .wrapper -->
+</div>
+<script type="text/javascript">
+    $(window).load(function ()
+    {
+
+        $(function () {
+            $("img.lazyed").lazyload();
+            $("img.lazy").lazyload();
+        });
+        $(function () {
+            $(".strict-block").lazyload({effect: 'fadeIn'});
+        });
+
+        var get_data = 'event_listing_by_ajax';
+        var popular_obj = $(this).find('div.photo-gallery-grid');
+        $(popular_obj).html('<div class="item-block"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/loading.gif" alt="Loading content" style="margin:5% 0;"/></div>');
+        $.ajax({
+            url: "/" + get_data + "/",
+            type: "post",
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            success: function (response) {
+                //alert(response)
+                $('#item-block').html(response);
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}

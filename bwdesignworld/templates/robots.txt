@@ -1,0 +1,8 @@
+#robots.txt
+
+User-agent: *
+Disallow: /tags/
+Disallow: /date/
+Disallow: /article-scroll-list/
+Allow: /
+Sitemap: http://bwwellness.businessworld.in/sitemap.xml

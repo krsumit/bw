@@ -1,0 +1,74 @@
+{% extends 'base/header.html' %}
+{% block main %}
+
+				<!-- BEGIN .wrapper -->
+				<div class="wrapper" id="datacall">
+
+					<!-- BEGIN .content-main -->
+					<div class="content-main">
+
+						<!-- BEGIN .strict-block -->
+						<div class="strict-block">
+							<div class="block-title">
+								<h2>Magazine Issues</h2>
+							</div>
+
+                            <div class="block-content item-block-1 ">
+                            <select name="purpose" id="yearinquery">
+                                        <option value="">{{year}}</option>
+                                        {% for magazine_allyears in magazine_allyear%}
+                                        <option value="{{magazine_allyears.years}}">{{magazine_allyears.years}}</option>
+                                        {%endfor%}
+
+                                    </select>
+                                </div>
+							<!-- BEGIN .block-content -->
+							<div class="block-content item-block-1 split-stuff blocks-4 products">
+
+
+
+
+
+                               {% for magazine_listings in magazine_listing%}
+                                 <div class="item-block product">
+                                    <a href="/magazine-issues/{{year}}/{{magazine_listings.get_absolute_url}}" target="_blank" class="product-content" style="margin-bottom: 10px !important; ">
+                                        <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{MAGAZINE_IMAGE_PATH}}{{magazine_listings.imagepath}}" title="{{magazine_listings.imagepath}}" class="lazy" height="450px"/></a>
+
+                                    <h3  style="padding-bottom: 9px !important ; padding-top: 0 !important;">{{magazine_listings.publish_date_m}}</h3>
+
+                                    <a href="http://subscribe.businessworld.in/" class="button add_to_cart_button" target="_blank"  style="margin-left:1px !important; font-size:10px !important;">Buy Print</a>
+                                    <a href="http://www.magzter.com/IN/GBN-Media-Pvt-Ltd/Businessworld/Business" target="_blank"  class="button add_to_cart_button" style="margin-left:1px !important; font-size:10px !important;">Buy Digital</a>
+                                    {% if magazine_listings.flipbook_url != '' %}
+                                    <a href="{{magazine_listings.flipbook_url}}" class="button add_to_cart_button" target="_blank"  style="margin-left:1px !important; font-size:10px !important;">FLIP PDF</a>
+                                    {% endif %}
+                                    <a href="/magazine-issues/{{year}}/{{magazine_listings.get_absolute_url}}" target="_blank"  class="button add_to_cart_button" style="margin-left:1px !important; font-size:10px !important;">Web</a>         
+                                </div>
+                                {%endfor%}
+
+
+
+
+							<!-- END .block-content -->
+							</div>
+
+
+						<!-- END .strict-block -->
+						</div>
+
+					<!-- END .content-main -->
+					</div>
+
+				<!-- END .wrapper -->
+				</div>
+ <script>
+        $(function() {
+            $("#yearinquery").change(function(event) {
+
+                event.preventDefault();
+                //alert(this.value);
+               window.location.href ='/magazine-issues/' + this.value
+            });
+        });
+
+    </script>
+{% endblock %}

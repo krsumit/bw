@@ -1,0 +1,204 @@
+{% extends 'base/header.html' %}
+{% block main %}
+	<div class="wrapper">
+		<!-- .with-sidebar / .with-sidebar-both / .with-middle -->
+		<!-- BEGIN .content-main -->
+		<div class="content-main with-sidebar left">
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block" id="quick_byte_content">
+                <div class="main-article">
+                    <h1>{{quickbytes_detail.quick_byte_title}}</h1>
+
+					<!-- Start of addthis side sharing code -->
+					<div class="addthis_sharing_toolbox"></div>
+					<!-- End of addthis side sharing code -->
+
+                    <p><i>{{quickbytes_detail.quick_byte_description}}</i></p>
+                    <div >
+                        <div class="article-header" id="gallery">
+                            <h3>
+                                <a href="/quickbytes/{{prev_quick_byte.quick_byte_title_for_url|urlencode}}/{{prev_quick_byte.quick_byte_published_date|date:'d-m-Y'}}-{{prev_quick_byte.quick_byte_id}}" id="photoprev" onclick="prev_quick_byte(event)" class="pull-left">
+                                    <b><i class="fa fa-arrow-circle-left"></i></b>
+                                </a>
+                                <a href="/quickbytes/{{next_quick_byte.quick_byte_title_for_url|urlencode}}/{{next_quick_byte.quick_byte_published_date|date:'d-m-Y'}}-{{next_quick_byte.quick_byte_id}}" id="photonext" onclick="next_quick_byte(event)" class="pull-right">
+                                    <b><i class="fa fa-arrow-circle-right"></i></b>
+                                </a>
+                            </h3>
+                            <img data-original="{{quickbytes_detail.quick_byte_photo_url}}" class="article-photo lazy" alt="" style="margin-top:0 !important" />
+                            <div class="article-meta">
+                                <div class="meta-date">
+                                    <span class="date">{{quickbytes_detail.quick_byte_published_date|date:"d"}}</span>
+								    <span class="month">{{quickbytes_detail.quick_byte_published_date|date:"F, Y"}}</span>
+								    <span class="author">by <a href="/author/{{author_label}}/{{author_details.0.author_name_for_url|urlencode}}-{{author_details.0.author_id}}">{{author_details.0.author_name}}</a></span>
+                                    <!--<span class="date">20</span>
+                                    <span class="month">January, 2013</span>
+                                    <span class="author">by <a href="#">BW Online Bureau</a></span>-->
+                                </div>
+                                <div class="meta-tools">
+                                    <a href="#"><i class="fa fa-print"></i>Print this article</a>
+                                    <span><i class="fa fa-text-height"></i>Font size <span class="f-size"><a href="#font-size-down">-</a><span class="f-size-number">16</span><a href="#font-size-up">+</a></span></span>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+
+                    <div class="social-article">
+                        <div class="custom-title"><strong>Share this article:</strong></div>
+						<!-- Start of addthis side sharing code -->
+                        <div class="addthis_sharing_toolbox"></div>
+                        <!-- End of addthis side sharing code -->
+                    </div>
+                    <hr />
+
+                    <div class="tag-cloud">
+                        <div class="custom-title"><strong>Tags assigned to this article:</strong></div>
+                            <a href="#">Assum splendide</a>
+                            <a href="#">Soluta aeterno</a>
+                            <a href="#">Persequeris</a>
+                            <a href="#">Tollit nominavi</a>
+                            <a href="#">Melius</a>
+                            <a href="#">Tollit nominavi</a>
+                            <a href="#">Persqe</a>
+                    </div>
+
+                    <hr />
+                </div>
+				<!-- END .strict-block -->
+			</div>
+
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block">
+				<div class="main-banner">
+					<a href="#" target="_blank"><img data-original="images/banner-728x90.jpg" alt="" class="lazy"/></a>
+				</div>
+				<!-- END .strict-block -->
+			</div>
+
+			<!-- BEGIN .strict-block -->
+			<div class="strict-block">
+				<div class="block-title">
+					<h2>Around The World</h2>
+
+				</div>
+				<!-- BEGIN .block-content -->
+				<div class="block-content item-block-1 split-stuff">
+					<!-- Out Brain Code -->
+					<div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="BusinessWorld"></div>
+					<script type="text/javascript" src="http://widgets.outbrain.com/outbrain.js"></script>
+					<!-- End -->
+				</div>
+					<!-- END .strict-block -->
+			</div>
+
+					<!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h2>Our Publications</h2>
+
+                    </div>
+                    <!-- BEGIN .block-content -->
+                    <div class="block-content item-block-2 split-stuff blocks-3">
+                        <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/our_pub_banner.jpg" width="100%"/>
+                        <a href="http://subscribe.businessworld.in">
+                            <input value="Subscribe To Print Copies" type="submit">
+                        </a>
+                        <a href="http://www.magzter.com/publishers/GBN-Media-Pvt-Ltd">
+                            <input value="Subscribe To Digital Copies" style="margin-top:5px;" type="submit">
+                        </a>
+                    </div>
+                    <!-- END .block-content -->
+                </div>
+                <!-- END .strict-block -->
+
+			<div class="strict-block">
+				<div class="main-banner">
+					<a href="#" target="_blank"><img data-original="images/banner-728x90.jpg" alt="" class="lazy"/></a>
+				</div>
+				<!-- END .strict-block -->
+			</div>
+			<!-- END .content-main -->
+		</div>
+
+		<!-- Mini Sidebar Start -->
+		<!--<div class="mini-sidebar">
+
+			<!--<div class="widget">
+				<div class="side-banner">
+					<a href="#" target="_blank"><img data-original="images/banner-160x250.jpg" alt="" class="lazy"/></a>
+				</div>
+			</div>-->
+
+			<!--<div class="widget">
+				<h3>Related Quickbyte</h3>
+				<div class="middle-articles">
+					{% for quickbytes_related_articlesed in quickbytes_related_articles%}
+					<div class="item">
+						<a href="#"><img data-original="{{quickbytes_related_articlesed.quick_byte_photo_url}}" alt="" class="lazy"/></a>
+						<h4><a href="#">{{quickbytes_related_articlesed.quick_byte_title}}</a></h4>
+					</div>
+					{%endfor%}
+
+
+				</div>
+			</div>
+
+			{% if sponsored_detail.0 %}
+				<div class="widget">
+					<h3>Sponsored</h3>
+					<div class="middle-articles">
+						{% for sponsored in sponsored_detail %}
+						<div class="item">
+							<a href="/sponser/{{sponsored.title_for_url|urlencode}}/{{sponsored.sponsoredposts_published_date|date:'d-m-Y'}}-{{sponsored.sponsoredposts_id}}">
+							 	{% if sponsored.image_url %}
+									<img data-original="{{sponsored.image_url}}" style="width:160px; height:95px;" alt="" class="lazyed"/>
+								{%endif%}
+							</a>
+							<h4><a href="/sponser/{{sponsored.title_for_url|urlencode}}/{{sponsored.sponsoredposts_published_date|date:'d-m-Y'}}-{{sponsored.sponsoredposts_id}}">{{sponsored.sponsoredposts_title}}</a></h4>
+						</div>
+						{%endfor%}
+					</div>
+				</div>
+			{% endif %}
+
+			<div class="widget">
+				<h3>BW Network</h3>
+				<div class="middle-articles">
+					{% for entry in feeds_cric.entries|slice:":2" %}
+						<div class="item">
+							<h4><a href="#">{{ entry.title}}</a></h4>
+							<a href="#" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW CIO</b></a>
+						</div>
+					{%endfor%}
+					{% for entryed in feeds_cric.entries|slice:":2" %}
+						<div class="item">
+							<h4><a href="#">{{ entryed.title}}</a></h4>
+							<a href="#" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW HOTELIER</b></a>
+						</div>
+					{%endfor%}
+					{% for entrys in feeds_cric.entries|slice:":2"  %}
+						<div class="item">
+							<h4><a href="#">{{ entrys.title}}</a></h4>
+							<a href="#" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW SMARTCITIES</b></a>
+						</div>
+					{%endfor%}
+				</div>
+			</div>
+
+			<div class="widget" >
+				<div class="side-banner">
+					<!-- /133806567/Article_Page_Middle_Panel_2 -->
+					<!--<div id='div-gpt-ad-1447742601367-0'>
+						<script type='text/javascript'>
+							googletag.cmd.push(function() { googletag.display('div-gpt-ad-1447742601367-0'); });
+						</script>
+					</div>
+				</div>
+			</div>
+		</div>-->\
+		<!-- Mini Sidebar Start -->
+
+		<!-- BEGIN #sidebar -->
+		{% include 'base/sidebar.html' %}
+		<!-- END .wrapper -->
+	</div>
+{% endblock %}

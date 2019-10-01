@@ -1,0 +1,220 @@
+{% extends 'base/header.html' %}
+{% block main %}
+
+{% if recent_articles.has_previous %}
+<div class="wrapper">
+    <div style="width:100%; text-align:center; padding-top: 20px; padding-bottom: 40px;" id="prev_pg_btn">
+        <a style="background: #2c3e50; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href='{{ request.path }}?page={{recent_articles.previous_page_number}}'>View Previous Articles</a>
+    </div>
+</div>
+{% endif %}
+<!-- BEGIN .wrapper -->
+<div class="wrapper">
+
+    <!-- BEGIN .content-main -->
+    <div class="content-main with-sidebar left">
+
+        <!-- BEGIN .strict-block -->
+        <div class="strict-block">
+            <div class="block-title">
+                <h2>{{page_title_h1}}</h2>
+            </div>
+            <!-- END .strict-block -->
+        </div>
+
+        <!-- BEGIN .strict-block -->
+        <div class="strict-block" id="main_recent_article_div">
+            <!-- BEGIN .block-content -->
+            <div class="blog-style url-changer" id="recent_article_data_{{recent_articles.number}}" data-page-id="{{recent_articles.number}}" data-url="{{view_page_url}}/?page={{recent_articles.number}}" data-title="Latest News, Analysis, Opinion - BWHotelier - Page {{recent_articles.number}}" data-og_title="BW Businessworld | Recent Articles - Page {{recent_articles.number}}">
+
+                {% for article in recent_articles %}
+                <div class="item {% if article.image_url or article.photopath %} image-small {% else %} image-no {% endif %}">
+                    <div class="item-header">
+                        <a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}" class="item-photo">
+                            {% if article.is_old == 1 %}
+                            <img data-original="{{article.image_url}}" alt="" class="lazy" style=" height: 219px;"/>
+                            {% else %}
+                            {% if article.photopath %}
+                            <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_LARGE_PATH}}{{article.photopath}}" alt="" class="lazy" style=" height: 219px;"/>
+                            {% endif %}
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="item-content">
+                        <h3><a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}">{{article.article_title}}</a></h3>
+                        <div class="item-icons">
+                            <a href="{{article.get_article_author_url}}"><i class="fa fa-user"></i>
+                                {{article.author_name}}
+                            </a>
+
+                        </div>
+
+                        <div class="item-icons">
+                            {% autoescape off %}
+                            {{article.get_article_category_data}}
+                            {% endautoescape %}
+                            <!--<a href="blog.html"><span style="color:#A00707">Health</span></a>
+                            <a href="blog.html"><span style="color:#A00707">Wealth</span></a>
+                            <a href="blog.html"><span style="color:#A00707">Insurance</span></a>-->
+                        </div>
+
+                        <p>{{article.article_summary}}</p>
+                        <a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}" class="trans-button"><i class="fa fa-align-right"></i>Read More</a>
+                    </div>
+                    <div class="clear-float"></div>
+                </div>
+                {% endfor %}
+
+                <!-- END .block-content -->
+            </div>
+            <!-- END .strict-block -->
+        </div>
+        <!--<div style="width:100%; display:none; text-align:center;" id="loaderdiv_listing" >
+            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/loading.gif" alt="Loading content"/>
+        </div>-->
+        <!-- END .content-main -->
+    </div>
+
+
+    <!-- BEGIN #sidebar -->
+    {% include 'base/sidebar.html' %}
+    <!-- END .wrapper -->
+</div>
+
+{% if recent_articles.has_next %}
+<div class="wrapper">
+    <div style="width:100%; text-align:center; padding-top: 20px; padding-bottom: 40px;" id="nxt_pg_btn">
+        <a style="background: #2c3e50; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href='{{ request.path }}?page={{recent_articles.next_page_number}}'>View More Articles</a>
+    </div>
+</div>
+{% endif %}
+
+
+<script>
+    $(document).ready(function(){
+    var lastScrollTop = 0;
+    var $title = $("title");
+    $(document.body).on("appear", ".url-changer", function() {
+    var $this = $(this),
+    url = $this.data("url"),
+    title = $this.data("title");
+    og_title = $this.data("og_title");
+    articleURL = url, articleTitle = title, window.history.replaceState(null, title, url);
+    $('title').html(title);
+    $('meta[name="title"]').attr('content', title);
+    $("meta[property='og\\:title']").attr("content", og_title);
+    $('meta[property="og\\:url"]').attr('content', url);
+    ga('send', {
+    'hitType': 'pageview',
+    'page': url,
+    'title': title
+    });
+    });
+
+    /*$(window).scroll(function(){
+    var st = $(this).scrollTop();
+    var no_of_pages = $('.url-changer').length;
+    var page_no = getUrlVars()["page"];
+    //alert(page_no);
+    if(!page_no)
+    page_no = 1;
+    var nxt_page = parseInt(page_no) + 1;
+    var prev_page = parseInt(page_no) - 1;
+
+    var total_page_no = parseInt('{{recent_articles.paginator.num_pages }}');
+    var landing_page_no = parseInt('{{recent_articles.number}}');
+
+    if (st > lastScrollTop){
+    // downscroll code
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+    //alert('{{recent_articles.number}}');
+    if(no_of_pages < 3) {
+    $('#loaderdiv_listing').show();
+    if($("#recent_article_data_"+nxt_page).length == 0) {
+    $("#main_recent_article_div").append('<div class="blog-style url-changer" id="recent_article_data_'+nxt_page+'" data-page-id="'+nxt_page+'" data-url="{{view_page_url}}/?page='+nxt_page+'" data-title="Latest News, Analysis, Opinion - BW Businessworld - Page '+nxt_page+'" data-og_title="BW Businessworld | Recent Articles - Page '+nxt_page+'"></div>');
+    }
+    if (nxt_page <= total_page_no) {
+
+    setTimeout(function () {
+    loadContent(nxt_page);
+
+    setTimeout(function () {
+    $('#loaderdiv_listing').hide();
+
+    $("img.lazyed").show().lazyload();
+    $("img.lazy").show().lazyload();
+
+    }, 2000);
+    }, 1000);
+    $(".url-changer").appear();
+    }
+    else {
+    $("#recent_article_data_" + nxt_page).html("<p>Sorry no more Articles</p>");
+    }
+
+    }
+    else if(no_of_pages == 3 && $("#nxt_pg_btn").length == 0) {
+    var nxtpglink = parseInt(landing_page_no) + 3;
+
+    $("#main_recent_article_div").append('<div class="wrapper"><div style="width:100%; text-align:center; padding-top: 20px;" id="nxt_pg_btn"><a style="background: #2c3e50; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="/all-articles/?page='+nxtpglink+'">View More Articles</a></div></div>');
+    }
+
+    }
+    }
+    /*else {
+    // upscroll code
+    if($(window).scrollTop() + $(window).height() < $(document).height() + 100) {
+    if (no_of_pages < 3) {
+    if ($("#recent_article_data_" + prev_page).length == 0) {
+    if (prev_page >= 1) {
+    $("#main_recent_article_div").prepend('<div class="blog-style url-changer" id="recent_article_data_' + prev_page + '" data-page-id="' + prev_page + '" data-url="{{view_page_url}}/?page=' + prev_page + '" data-title="Latest News, Analysis, Opinion - BW Businessworld - Page ' + prev_page + '" data-og_title="BW Businessworld | Recent Articles - Page '+prev_page+'"></div>');
+    }
+    }
+    if (prev_page >= 1) {
+    loadContent(prev_page);
+    $(".url-changer").appear();
+    }
+
+    }
+    else if(no_of_pages == 3 && $("#prev_pg_btn").length == 0 && prev_page >= 1) {
+    //window.location = "/all-articles/?page="+prev_page;
+    $("#main_recent_article_div").prepend('<div class="wrapper"><div style="width:100%; text-align:center; padding-top: 20px;" id="prev_pg_btn"><a style="background: #2c3e50; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="/all-articles/?page=' + prev_page + '">View More Articles</a></div></div>');
+    }
+    }
+    }*/
+    /*});*/
+    });
+
+    function loadContent(page_number)
+    {
+    $("#recent_article_data_"+page_number).load("{{listing_page_url}}/?page="+page_number+" #recent_article_data > *");
+    $(".blog-style").removeClass("current_visible");
+    $("#recent_article_data_"+page_number).addClass("current_visible");
+    var in_view = isScrolledIntoView(".blog-style");
+    }
+
+    function getUrlVars()
+    {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+    hash = hashes[i].split('=');
+    vars.push(hash[0]);
+    vars[hash[0]] = hash[1];
+    }
+    return vars;
+    }
+
+    function isScrolledIntoView(elem) {
+    var $elem = $(elem),
+    $window = $(window),
+    docViewTop = $window.scrollTop(),
+    docViewBottom = docViewTop + $window.height(),
+    elemTop = $elem.offset().top,
+    elemBottom = elemTop + $elem.height();
+    return docViewBottom >= elemBottom && elemTop >= docViewTop
+    }
+</script>
+
+{% endblock %}

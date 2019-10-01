@@ -1,0 +1,87 @@
+{% block sidebar %}
+    <!-- BEGIN #sidebar -->
+    <aside id="sidebar" class="right">
+
+        <!--<div class="header-2-content" style="padding-top:0px !important;">
+            <div class="header-search">
+                <form action="search.html">
+                    <i class="fa fa-search"></i>
+                    <input placeholder="Search " value="" class="search-box" type="text">
+                </form>
+            </div>
+        </div>-->
+        <div class="header-2-content" style="padding-top: 0px ! important; background-color: #f5f5f5; margin-bottom: 5px; border-radius: 5px; padding:0 !important;">
+            <div class="header-search" >
+                <form action='{% if request.path != "/search/authors/" %} /search/articles {% else %} {{request.path}} {% endif %}' id="search_form">
+                    <input type="text" placeholder="Search " name="q" id="search_keyword" value="{{query}}" style="width:70%; float:left; margin:10px !important;" />
+                    <button  type="button" style="float:left; margin:14px 0 !important;" onclick="javascript:check_query_keyword();">
+                        <i class="fa fa-search" style="float:left; color:#333 !important; right:20px; font-size:14px !important; position:static !important; margin-top:0 !important"></i>
+                    </button>
+                    <p style="padding: 0px; font-size: 12px; float: left; color: red; margin: -5px 10px 5px; display:none" id="search_error_msg">Please enter a search keyword</p>
+
+                    <div style="width:90%; padding:1% 5%; text-align:left; float:left; line-height:30px;">
+                        <div style="width:45%; float:left;">
+                            <input type="radio" name="search" data-action="/search/articles" class="search_model" {% if request.path != "/search/authors/" or request.path != "/search/quickbytes/" %} checked="checked" {% endif %} >&nbsp;
+                            <span style="font-size:15px; line-height:25px;">Article</span>
+                        </div>
+                        <div style="width:55%; float:left;">
+                            <input type="radio" name="search" data-action="/search/authors" class="search_model" {% if request.path = "/search/authors/" %} checked="checked" {% endif %}>&nbsp;
+                            <span style="font-size:15px; line-height:25px;">Author</span>
+                        </div>
+                    </div>
+
+                </form>
+             </div>
+        </div>
+
+        <div class="widget">
+            <div class="sidebar-banner">
+                <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                <!-- Javascript tag  -->
+                <!-- begin ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-300x250-1 - 300 x 250 -->
+                <script language="JavaScript">
+                    var zflag_nid="3336"; var zflag_cid="7"; var zflag_sid="2"; var zflag_width="300"; var zflag_height="250"; var zflag_sz="27";
+                </script>
+                <script language="JavaScript" src="http://xp2.zedo.com/jsc/xp2/fo.js"></script>
+                <!-- end ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-300x250-1 - 300 x 250 -->
+            </div>
+        </div>
+
+         <div class="widget">
+                    <h3>Socialize</h3>
+                    <div>
+                        <p>Get Social! Follow us on your favourite social networking website.</p>
+                        <div>
+                            <div class="socialize-tool">
+                                <a class="socialize-icon facebook" target="_blank" href="https://www.facebook.com/BWHotelier/">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a class="socialize-icon twitter" target="_blank" href="https://twitter.com/bwhotelier">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a class="socialize-icon google"  target="_blank" href="https://www.youtube.com/user/bwbusinessworld?sub_confirmation=1">
+                                    <i class="fa fa-youtube"></i>
+                                </a>
+                                <a class="socialize-icon linkedin"  target="_blank" href="http://bwhotelier.businessworld.in/rss-feed/">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <div class="widget">
+            <div class="sidebar-banner">
+                <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                <!-- Javascript tag  -->
+                <!-- begin ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-300x250-2 - 300 x 250 -->
+                <script language="JavaScript">
+                    var zflag_nid="3336"; var zflag_cid="7"; var zflag_sid="2"; var zflag_width="300"; var zflag_height="250"; var zflag_sz="28";
+                </script>
+                <script language="JavaScript" src="http://xp2.zedo.com/jsc/xp2/fo.js"></script>
+                <!-- end ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-300x250-2 - 300 x 250 -->
+            </div>
+        </div>
+
+    <!-- END #sidebar -->
+    </aside>
+{% endblock %}

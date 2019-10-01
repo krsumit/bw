@@ -1,0 +1,482 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <!--<script type="text/javascript" async src="/static_bwhotelier/jscript/jssor.js"></script>
+    <script type="text/javascript" async src="/static_bwhotelier/jscript/jssor.slider.js"></script>-->
+    <script type="text/javascript" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/jscript/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/jscript/sweetalert.css">
+    <div id="main_recent_article_div">
+        <!-- BEGIN .wrapper -->
+        <div class="wrapper url-changer" id="recent_article_data_{{article_detail.article_id}}" data-page-id="{{article_detail.article_id}}" data-url="/article/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}/?nx_ar={{next_article.article_id}}" data-title="{{meta_title}}" data-meta-description="{{meta_description}}" data-meta-keyword="{{meta_keyword}}" data-og-title="{{og_title}}" data-og-url="{{og_url}}" data-og-image="{{og_image}}">
+		<!-- .with-sidebar / .with-sidebar-both / .with-middle -->
+            <!-- BEGIN .content-main -->
+            <div class="content-main with-sidebar left">
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    {% if author_details.0 %}
+                        {% if author_details.0.author_type != 1 and author_details.0.author_type != 2 and author_details.0.author_type != 3 %}
+                            <div class="block-title">
+                                {% if author_details.0.author_type == 4 %}
+                                    <h2>{{column_details.0.column_name}}</h2>
+                                    <a href="/column/{{column_details.0.column_nameed_for_url|urlencode}}-{{column_details.0.column_id}}" class="panel-title-right">View More</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="main-article">
+                        {% if author_details.0 %}
+                            {% if author_details.0.author_type != 1 and author_details.0.author_type != 2 and author_details.0.author_type != 3 %}
+                                <div class="about-author" style="margin-top:0 !important; border-top:none !important;">
+                                    {% if author_details.0.author_photo %}
+                                        <a href="/author/{{author_label}}/{{author_details.0.author_name_for_url|urlencode}}-{{author_details.0.author_id}}">
+                                            <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{AUTHOR_IMAGE_PATH}}{{author_details.0.author_photo}}" class="about-avatar" alt="" class="lazy"/>
+                                        </a>
+                                   {% else %}
+                                        <a href="/author/{{author_label}}/{{author_details.0.author_name_for_url|urlencode}}-{{author_details.0.author_id}}">
+                                            <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/author_dummy.png" class="about-avatar" alt=""class="lazy" />
+                                        </a>
+                                   {% endif %}
+                                    <div class="about-content">
+                                        <h3>{{author_details.0.author_name}}</h3>
+                                        <p>{{author_details.0.author_bio}}</p>
+                                        <a href="/author/{{author_label}}/{{author_details.0.author_name_for_url|urlencode}}-{{author_details.0.author_id}}" class="pull-right" style="margin-top:5px;">More From The Author >></a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <style>
+                            @media screen and (min-width: 976px) {
+                                .main-article .big_article_header{font-size:45px !important;}
+                                .main-article .big_article_summary{font-size:25px;}
+                            }
+                        </style>
+                        <h1 class="big_article_header">{{article_detail.article_title}}</h1>
+
+                        {% autoescape off %}
+                            <div style="margin-top:20px;"><p class="big_article_summary"><i>{{article_detail.article_summary}}</i></p></div>
+                        {% endautoescape %}
+
+                        <!-- Start of addthis side sharing code -->
+                        <div class="addthis_sharing_toolbox"></div>
+                        <!--<div class="addthis_responsive_sharing"></div>-->
+                        <!-- End of addthis side sharing code -->
+
+                       
+
+                        <div style="text-align: center; width: 100%; vertical-align: middle !important; display: table;">
+                            <!-- Gist Summariser Code -->
+                            <span class='bt_gistbutton_default' data-text='Gist' data-color="#fff" data-bgcolor="#ff3838" style="display: inline-block; margin: 10px 10px 0 0; float: inherit !important;"></span>
+                            <!-- End of Gist Summariser Code -->
+                        </div>
+
+                        <div class="article-header">
+                            {% if article_all_image_count > 1 %}
+                            <!-- Jssor Slider Begin -->
+                            <!-- To move inline styles to css file/block, please specify a class name for each element. -->
+                            <div id="slider_container_{{article_detail.article_id}}" style="position: relative; top: 0px; left: 0px; height: 450px; background: #191919; overflow: hidden;">
+                                <!-- Loading Screen -->
+                                <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+                                    <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                                        background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+                                    </div>
+                                    <div style="position: absolute; display: block; background: url({{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/loading.gif) no-repeat center center; top: 0px; left: 0px;width: 100%;height:100%;">
+                                    </div>
+                                </div>
+
+                                <!-- Slides Container -->
+                                <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 800px; height: 450px; overflow: hidden;">
+                                    {% for images in article_all_image %}
+                                        {% if article_detail.is_old == 1 %}
+                                        <div>
+                                            <img u="image" src="{{images.image_url}}"/>
+                                            <!--<img u="thumb" src="{{images.image_url}}"/>-->
+                                        </div>
+                                        {% else %}
+                                             <div>
+                                                <img u="image" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{images.photopath}}"/>
+                                                <!--<img u="thumb" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{images.photopath}}"/>-->
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <style>
+                                    .jssorb01 {
+                                        position: absolute;
+                                    }
+                                    .jssorb01 div, .jssorb01 div:hover, .jssorb01 .av {
+                                        position: absolute;
+                                        /* size of bullet elment */
+                                        width: 12px;
+                                        height: 12px;
+                                        filter: alpha(opacity=70);
+                                        opacity: .7;
+                                        overflow: hidden;
+                                        cursor: pointer;
+                                        border: #000 1px solid;
+                                    }
+                                    .jssorb01 div { background-color: gray; }
+                                    .jssorb01 div:hover, .jssorb01 .av:hover { background-color: #d3d3d3; }
+                                    .jssorb01 .av { background-color: #fff; }
+                                    .jssorb01 .dn, .jssorb01 .dn:hover { background-color: #555555; }
+                                </style>
+                                <!-- bullet navigator container -->
+                                <div u="navigator" class="jssorb01" style="bottom: 16px; right: 10px;">
+                                    <!-- bullet navigator item prototype -->
+                                    <div u="prototype"></div>
+                                </div>
+                                <!--#region Arrow Navigator Skin Begin -->
+                                <style>
+                                    .jssora05l, .jssora05r {
+                                        display: block;
+                                        position: absolute;
+                                        /* size of arrow element */
+                                        width: 40px;
+                                        height: 40px;
+                                        cursor: pointer;
+                                        background: url({{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/a17.png) no-repeat;
+                                        overflow: hidden;
+                                    }
+                                    .jssora05l { background-position: -10px -40px; }
+                                    .jssora05r { background-position: -70px -40px; }
+                                    .jssora05l:hover { background-position: -130px -40px; }
+                                    .jssora05r:hover { background-position: -190px -40px; }
+                                    .jssora05l.jssora05ldn { background-position: -250px -40px; }
+                                    .jssora05r.jssora05rdn { background-position: -310px -40px; }
+                                </style>
+                                <!-- Arrow Left -->
+                                <span u="arrowleft" class="jssora05l" style="top: 158px; left: 8px;"></span>
+                                <!-- Arrow Right -->
+                                <span u="arrowright" class="jssora05r" style="top: 158px; right: 8px"></span>
+                                <!--#endregion Arrow Navigator Skin End -->
+                            </div>
+                            <!-- Jssor Slider End -->
+                            {% else %}
+                                {% if article_detail.image_url %}
+                                    {% if article_detail.is_old == 1 %}
+
+                                        <img data-original="{{article_detail.image_url}}" class="article-photo lazy" alt="" />
+                                        {% else %}
+                                        <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{article_detail.photopath}}" class="article-photo lazy" alt="" />
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                            <div class="article-meta">
+                                <div class="meta-date">
+                                    <span class="date">{{article_detail.article_published_date|date:"d"}}</span>
+                                    <span class="month">{{article_detail.article_published_date|date:"F, Y"}}</span>
+                                    <span class="author">by <a href="/author/{{author_label}}/{{author_details.0.author_name_for_url|urlencode}}-{{author_details.0.author_id}}">{{author_details.0.author_name}}</a></span>
+                                </div>
+                                <div class="meta-tools">
+                                    <a href="#"><i class="fa fa-print"></i>Print this article</a>
+                                    <span><i class="fa fa-text-height"></i>Font size <span class="f-size"><a href="#font-size-down">-</a><span class="f-size-number">16</span><a href="#font-size-up">+</a></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            {% autoescape off %}
+                             {% if article_detail.video_embed_code %}
+                                <div style="width:260px; float:left; display:inline-block; margin:0 5px 5px 0;">
+                                   
+                                        <!-- here goes the video code -->
+                                        {{video_embed_code}}
+                                    
+                                   
+                                </div>
+                              {% endif %}
+                            {% endautoescape %}
+                            {% autoescape off %}
+                                <p>{{article_description|safe}}</p>
+                            {% endautoescape %}
+                        </div>
+
+                        <div class="secondary_author">
+                        {% for author in author_details %}
+                            {% if author.author_id != author_details.0.author_id %}
+                            <span>{{author.author_name}}, </span>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+
+                        <!-- Start of addthis side sharing code -->
+                        <div class="social-article">
+                            <div class="custom-title"><strong>Share this article:</strong></div>
+                            <div class="addthis_sharing_toolbox"></div>
+                        </div>
+                        <!-- End of addthis side sharing code -->
+
+                        {% if article_detail.magazine_title %}
+                        <div>{{article_detail.magazine_title}}</div>
+                        {% endif %}
+
+                        <hr />
+                        <div>
+                            <p style="color:#353535; font-size: 16px; font-weight: bold;">
+                                To comment on this article and discuss it with BW Readers
+                                <a style="background: #F45881; color: #fff; padding: 1%; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="/article/comments/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}">Click Here!</a>
+                            </p>
+                        </div>
+                        <hr />
+
+                        <div class="tag-cloud">
+                            <div class="custom-title"><strong>Tags assigned to this article:</strong></div>
+                            {% for tag in article_tags %}
+                            <a href="/tags/{{tag.title_for_url|urlencode}}-{{tag.tag_id}}/">{{tag.tag_name}}</a>
+                            {% endfor %}
+                        </div>
+
+                        <hr />
+                    </div>
+
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="main-banner" style="height:90px !important;">
+                        <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                        <!-- Javascript tag  -->
+                        <!-- begin ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-728x90-Middle of page - 728 x 90 -->
+                        <script language="JavaScript">
+                            var zflag_nid="3336"; var zflag_cid="7"; var zflag_sid="2"; var zflag_width="728"; var zflag_height="90"; var zflag_sz="29";
+                        </script>
+                        <script language="JavaScript" src="http://xp2.zedo.com/jsc/xp2/fo.js"></script>
+                        <!-- end ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-728x90-Middle of page - 728 x 90 -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h2>Around The World</h2>
+
+                    </div>
+                    <div class="block-content item-block-1 split-stuff">
+                        <!-- Out Brain Code -->
+                        <div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="BusinessWorld"></div>
+                        <script type="text/javascript" src="http://widgets.outbrain.com/outbrain.js"></script>
+                        <!-- End -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <!--<div class="strict-block">
+                    <div class="block-title">
+                        <h2>Our Publications</h2>
+
+                    </div>
+                    <!-- BEGIN .block-content -->
+                    <!--<div class="block-content item-block-2 split-stuff blocks-3">
+                        <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/our_pub_banner.jpg" width="100%"/>
+                        <a href="http://subscribe.businessworld.in">
+                            <input value="Subscribe To Print Copies" type="submit">
+                        </a>
+                        <a href="http://www.magzter.com/publishers/GBN-Media-Pvt-Ltd">
+                            <input value="Subscribe To Digital Copies" style="margin-top:5px;" type="submit">
+                        </a>
+                    </div>
+                    <!-- END .block-content -->
+                <!--</div>-->
+                <!-- END .strict-block -->
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="main-banner" style="height:90px !important;">
+                        <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                        <!-- Javascript tag  -->
+                        <!-- begin ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-728x90-Footer - 728 x 90 -->
+                        <script language="JavaScript">
+                            var zflag_nid="3336"; var zflag_cid="7"; var zflag_sid="2"; var zflag_width="728"; var zflag_height="90"; var zflag_sz="30";
+                        </script>
+                        <script language="JavaScript" src="http://xp2.zedo.com/jsc/xp2/fo.js"></script>
+                        <!-- end ZEDO for channel:  Rest Of Site-BWH , publisher: BW Hotelier , Ad Dimension: BWH-728x90-Footer - 728 x 90 -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+            <!-- END .content-main -->
+            </div>
+
+            <!-- Mini Sidebar Start -->
+            <!--<div class="mini-sidebar">
+
+                <!--<div class="widget">
+                    <div class="side-banner">
+                        <a href="#" target="_blank"><img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/banner-160x250.jpg" alt="" class="lazyed"/></a>
+                    </div>
+                </div>-->
+
+                <!--{% if related_content.0 %}
+                    <div class="widget">
+                        <h3>Related Articles</h3>
+                        <div class="middle-articles">
+                            {% for related in related_content %}
+                                <div class="item">
+
+                                    <a href="/article/{{related.title_for_url|urlencode}}/{{related.article_published_date|date:'d-m-Y'}}-{{related.article_id}}">
+                                         {% if related.is_old == 1 %}
+
+                                        <img data-original="{{ related.image_url }}" style="width:100%;" alt="" class="lazyed"/>
+                                        {% else %}
+                                        <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_MEDIUM_PATH}}{{ related.photopath }}" style="width:160px; height:95px;" alt="" class="lazyed"/>
+                                        {% endif %}
+                                    </a>
+                                    <h4><a href="/article/{{related.title_for_url|urlencode}}/{{related.article_published_date|date:'d-m-Y'}}-{{related.article_id}}">{{related.article_title}}</a></h4>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if sponsored_detail.0 %}
+                    <div class="widget">
+                        <h3>Sponsored</h3>
+                        <div class="middle-articles">
+                            {%for sponsored_details in sponsored_detail%}
+                            <div class="item">
+                                <a href="/sponser/{{sponsored_details.title_for_url|urlencode}}/{{sponsored_details.sponsoredposts_published_date|date:'d-m-Y'}}-{{sponsored_details.sponsoredposts_id}}">
+                                    {% if sponsored_details.image_url %}
+                                        <img data-original="{{sponsored_details.image_url}}" style="width:100%;" alt="" class="lazyed"/>
+                                    {% endif %}
+                                </a>
+                                <h4><a href="/sponser/{{sponsored_details.title_for_url|urlencode}}/{{sponsored_details.sponsoredposts_published_date|date:'d-m-Y'}}-{{sponsored_details.sponsoredposts_id}}">{{sponsored_details.sponsoredposts_title}}</a></h4>
+                            </div>
+                            {%endfor%}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="widget">
+                    <h3>BW Network</h3>
+                    <div class="middle-articles">
+                        {% for entry in feeds_cric.entries|slice:":2" %}
+                            <div class="item">
+                                <h4><a href="{{entry.link}}">{{ entry.title}}</a></h4>
+                                <a href="http://bwcio.com" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW CIO</b></a>
+                            </div>
+                        {%endfor%}
+                        {% for entryed in feeds_cric.entries|slice:":2" %}
+                            <div class="item">
+                                <h4><a href="{{entryed.link}}">{{ entryed.title}}</a></h4>
+                                <a href="http://bwhotelier.com" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW HOTELIER</b></a>
+                            </div>
+                        {%endfor%}
+                        {% for entrys in feeds_cric.entries|slice:":2"  %}
+                            <div class="item">
+                                <h4><a href="{{entrys.link}}">{{ entrys.title}}</a></h4>
+                                <a href="http://bwsmartcities.com" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW SMARTCITIES</b></a>
+                            </div>
+                        {%endfor%}
+                    </div>
+                </div>
+
+                <div class="widget" >
+                    <div class="side-banner">
+                        <!-- /133806567/Article_Page_Middle_Panel_2 -->
+                        <!--<div id='div-gpt-ad-1447742601367-0'>
+                            <script type='text/javascript'>
+                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1447742601367-0'); });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+            </div>-->
+            <!-- Mini Sidebar End -->
+
+            <!-- BEGIN #sidebar -->
+            {% include 'base/sidebar.html' %}
+
+            <!-- newsletter subscription div-->
+            <!--<div class="newsletter-sbcrp-div" style="background-image:url('{{newsletter.newsletter_image}}');">
+                <div class="sbcrp-div-inner">
+                    <div class="sbcrp-div-inner2">
+                        <div class="widget" style="max-width:500px !important; width:auto;">
+                            <div>
+                                <div class="subscribe-feed" style="text-align:center;">
+                                    <form  method="post" id="newsletter_form">
+                                        {% csrf_token %}                
+                                        <input type="hidden" name="newsletter_type_id" value="{{newsletter.newsletter_id}}">
+                                        <h1 style="color:#fff; font-size:36px;">{{newsletter.newsletter_title}}</h1>
+                                        <br>
+                                        <h1 style="color:#fff;">Subscribe To Weekly Newsletter</h1>
+                                        <br>
+                                        <p style="color:#fff;">{{newsletter.newsletter_description}}</p>
+                                        <br><br>
+                                        <p><input value="" placeholder="Your e-mail" type="text" name="subscriber_email_id" id="subscriber_email_id" required></p>
+                                        <p><a id="newsletter_submit" href=""><input value="Subscribe Now" type="submit"></a></p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+            <!-- end newsletter subscription div-->
+            <!-- END .wrapper -->
+        </div>
+        <div class="wrapper" style="margin-top:20px;">
+            <div class="article_end_border"></div>
+        </div>
+
+        <!--<div style="width:100%; display:none; text-align:center;" id="loaderdiv" ><!--onClick="load_home()"-->
+            <!--<img src="/static/images/loading.gif" alt="Loding content"/>
+        </div>-->
+    </div>
+    <script>
+        $(function() {
+            $("a#newsletter_submit").click(function(event) {
+                event.preventDefault();
+                //console.log("create post is working!") // sanity check
+                $.ajax({
+                    url : "/newsletter_Subscriber_details/", // the endpoint
+                    type : "POST", // http method
+                    data : $('#newsletter_form').serialize(), // data sent with the post request
+
+                    // handle a successful response
+                    success : function(json) {
+                        $('#subscriber_email_id').val(''); // remove the value from the input
+                        console.log(json); // log the returned json to the console
+                        console.log("success"); // another sanity check
+                        $.each(json, function(index, element) {
+                            if(index == 'checkuser') {
+                                swal({
+                                title: "Oops!",
+                                text: "Sorry you seem to have already subscribed to this newsletter!",
+                                type: "error",
+                                 confirmButtonText: "OK"
+                                });
+                            }
+                             if(index == 'success') {
+                                swal({
+                                title: "Thank You!",
+                                text: "You have successfully subscribed to the newsletter!",
+                                type: "success",
+                                 confirmButtonText: "OK"
+                             });
+                            }
+                             if(index == 'error') {
+                                swal({
+                                title: "Sorry!",
+                                text: "Something seem to have gone wrong! Check your email ID and try again.",
+                                type: "error",
+                                 confirmButtonText: "OK"
+                                });
+                            }
+                        });
+                    },
+                    // handle a non-successful response
+                    error : function(xhr,errmsg,err) {
+                        $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+" <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                    }
+                });
+            });
+        });
+	</script>
+    <!-- End -->
+
+{% endblock %}

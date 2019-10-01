@@ -1,0 +1,287 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <!--<form method="get" action=".">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+
+        {% if query %}
+            <h3>Results</h3>
+
+            {% for result in page.object_list %}
+                <p>
+                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.article_title }}</a>
+                </p>
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+    </form>-->
+    {{page.object_list.facet('model').facet_counts}}
+    <!-- BEGIN .wrapper -->
+    <div class="wrapper">
+        <!-- BEGIN .content-main -->
+        <div class="content-main with-sidebar left">
+            {% if query %}
+
+            <!-- Article Search list -->
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <h3 style="margin-bottom:5px;"><a href="#">You searched for: {{ query }}</a></h3>
+                    <div class="block-title">
+                        <h2>Search Results In Article For {{ query }}: 52 Articles</h2>
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <!-- BEGIN .block-content -->
+                    <div class="blog-style">
+                        {% for result in page.object_list %}
+                            {% if result.object.article_title %}
+                                <div class="item image-small">
+                                    <div class="item-header">
+                                        <a href="#" class="item-photo"><img src="images/photos/image-64.jpg" alt="" /></a>
+                                    </div>
+                                    <div class="item-content">
+                                        <h3><a href="{{ result.object.get_absolute_url }}">{{ result.object.article_title }}</a></h3>
+                                        <div class="item-icons">
+                                            <a href="blog.html"><i class="fa fa-user"></i>Author Name</a>
+                                        </div>
+
+                                        <div class="item-icons">
+                                            {% autoescape off %}
+                                                {{result.object.get_article_category_data}}
+                                            {% endautoescape %}
+                                        </div>
+
+                                        <p>{{ result.object.article_summary }}</p>
+                                        <a href="{{ result.object.get_absolute_url }}" class="trans-button"><i class="fa fa-align-right"></i>Read More</a>
+                                    </div>
+                                    <div class="clear-float"></div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="coloralert" style="background-color:#b83827;">
+                            <p>Sorry! We did not find any result for your search term in this Segment.</p>
+                        </div>
+
+                        <div class="paragraph-row">
+                            <div class="main-article">
+                                <p>
+                                    <a href="#" class="button" style="background:#68a117; margin-bottom:10px;">
+                                        View All 52 Articles In India
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- END .block-content -->
+                    </div>
+                    <!-- END .strict-block -->
+                </div>
+                <!-- End of Article search list -->
+
+                <!-- Quick Bytes Search list -->
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h2>Search Results In Quick Bytes For {{ query }}: 30 Quick Bytes</h2>
+                        <!--<a href="" class="panel-title-right">View all posts</a>-->
+                    </div>
+
+                    <div class="coloralert" style="background-color:#b83827; margin-top:20px;">
+                            <p>Sorry! We did not find any result for your search term in this Segment.</p>
+                            <!--<a href="#close-alert"><i class="fa fa-plus"></i></a>-->
+                        </div>
+
+                    <!-- BEGIN .block-content -->
+                    <div class="block-content item-block-1 split-stuff blocks-3">
+
+                        <div class="item-block">
+                            <div class="item-header">
+                                <a href="article-landing.html" class="item-photo"><img src="images/photos/image-4.jpg" alt=""></a>
+                            </div>
+                            <div class="item-content">
+                                <h3><a href="article-landing.html">An rebum nusquam cum duo vidit invenire mundi</a></h3>
+                                    <a href="author-page.html" class="author-name">Giorgino Bertrando</a>
+                            </div>
+                        </div>
+
+                        <div class="item-block">
+                            <div class="item-header">
+                                <a href="article-landing.html" class="item-photo"><img src="images/photos/image-5.jpg" alt=""></a>
+                            </div>
+                            <div class="item-content">
+                                <h3><a href="article-landing.html">Quas posidonium vitupera toribus pro usu albucius</a></h3>
+                                    <a href="author-page.html" class="author-name">Diarmad Alistair</a>
+                            </div>
+                        </div>
+
+                        <div class="item-block">
+                            <div class="item-header">
+                                <a href="article-landing.html" class="item-photo"><img src="images/photos/image-7.jpg" alt=""></a>
+                            </div>
+                            <div class="item-content">
+                                <h3><a href="article-landing.html">Quas posidonium vitupera toribus pro usu albucius</a></h3>
+                                    <a href="author-page.html" class="author-name">Diarmad Alistair</a>
+                            </div>
+                        </div>
+
+                        <div class="paragraph-row">
+                            <div class="main-article">
+                            <p>
+                            <a href="search listing qb.html" class="button" style="background:#68a117; margin-bottom:10px;">View All 30 Quick Bytes In India</a>
+                            </p>
+                            </div>
+                       </div>
+
+                    <!-- END .block-content -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+                <!-- End of Quick Bytes serach list -->
+
+                <!-- Author search list -->
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h2>Search Results In Columnists For {{ query }}: 12 Columnists</h2>
+                    </div>
+                    {% if result.object.author_name %}
+                        <div class="article-split-second" style="margin-top:0 !important; border-top:none !important;">
+                            {% for result in page.object_list %}
+                                <div class="item" style="margin-top:10px;">
+                                    <div class="item-photo">
+                                        <a href="#"><img src="{{ result.object.author_photo }}" alt=""></a>
+                                    </div>
+                                    <div class="item-content">
+                                        <h3><a href="#">{{ result.object.author_name }}</a></h3>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="paragraph-row">
+                                <div class="main-article">
+                                    <p>
+                                        <a href="search listing cloumn.html" class="button" style="background:#68a117; margin-bottom:10px;">View All 12 Columinists In India</a>
+                                    </p>
+                                </div>
+                           </div>
+                        </div>
+                    {% else %}
+
+                        <div class="coloralert" style="background-color:#b83827; margin-top:20px;">
+                            <p>Sorry! We did not find any result for your search term in this Segment.</p>
+                        </div>
+                    {% endif %}
+
+                    <!-- END .strict-block -->
+                </div>
+                <!-- End of Author search list -->
+
+                <!-- Sponsored Article search list -->
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+
+                    <div class="block-title">
+                        <h2>Search Results In Sponsored Article For {{ query }}: 52 Articles</h2>
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <!-- BEGIN .block-content -->
+                    <div class="blog-style">
+
+                    <div class="coloralert" style="background-color:#b83827;">
+                            <p>Sorry! We did not find any result for your search term in this Segment.</p>
+                            <!--<a href="#close-alert"><i class="fa fa-plus"></i></a>-->
+                        </div>
+
+                        <div class="item image-small">
+                            <div class="item-header">
+
+                                <a href="#" class="item-photo"><img src="images/photos/image-64.jpg" alt="" /></a>
+                            </div>
+                            <div class="item-content">
+                                <h3><a href="#">An rebum nusquam cum duo invenire mundi</a></h3>
+                                <div class="item-icons">
+                                    <a href="blog.html"><i class="fa fa-user"></i>Author Name</a>
+
+                                </div>
+
+                                <div class="item-icons">
+                                    <a href="blog.html"><span style="color:#A00707">Health</span></a>
+                                    <a href="blog.html"><span style="color:#A00707">Wealth</span></a>
+                                    <a href="blog.html"><span style="color:#A00707">Insurance</span></a>
+                                </div>
+
+                                <p>Assum splendide scribentur eu nam. Purto oratio nec et, vix quem assum. Ut vim mollis tibique efficiantur. Euismo ocurreret corrumpit cum te, ex vel quis reque dicat. Vix at aperiri accusus, recusabo indoctum mediocritatem duo in. Et mel malis soluta aeterno. Assum eu nam...</p>
+                                <a href="#" class="trans-button"><i class="fa fa-align-right"></i>Read More</a>
+                            </div>
+                            <div class="clear-float"></div>
+                        </div>
+
+                        <div class="item image-no">
+                            <div class="item-content">
+                                <h3><a href="#">An rebum nusquam cum duo invenire mundi</a><a href="##comments" class="item-comment"><span>13</span></a></h3>
+                                <div class="item-icons">
+                                    <a href="blog.html"><i class="fa fa-user"></i>Author Name</a>
+
+                                </div>
+
+                                <div class="item-icons">
+                                    <a href="blog.html"><span style="color:#A00707">Health</span></a>
+                                    <a href="blog.html"><span style="color:#A00707">Wealth</span></a>
+                                    <a href="blog.html"><span style="color:#A00707">Insurance</span></a>
+                                </div>
+                                <p>Assum splendide scribentur eu nam. Purto oratio nec et, vix quem assum. Ut vim mollis tibique efficiantur. Euismo ocurreret corrumpit cum te, ex vel quis reque dicat. Vix at aperiri accusus, recusabo indoctum mediocritatem duo in. Et mel malis soluta aeterno. Assum eu nam...</p>
+                                <a href="#" class="trans-button"><i class="fa fa-align-right"></i>Read More</a>
+                            </div>
+                            <div class="clear-float"></div>
+                        </div>
+
+
+                       <div class="paragraph-row">
+                            <div class="main-article">
+                            <p>
+                            <a href="#" class="button" style="background:#68a117; margin-bottom:10px;">View All 52 Articles In India</a>
+                            </p>
+                            </div>
+                       </div>
+
+                    <!-- END .block-content -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+                <!-- End of Sponsored Article search list -->
+                <!-- END .content-main -->
+            </div>
+        {% endif %}
+
+
+        <!-- BEGIN #sidebar -->
+        {% include 'base/sidebar.html' %}
+
+    <!-- END .wrapper -->
+    </div>
+
+
+
+
+{% endblock %}

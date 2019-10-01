@@ -1,0 +1,94 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div class="wrapper">
+
+        <!-- BEGIN .content-main -->
+        <div class="content-main with-sidebar left">
+
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block">
+
+                <div class="block-title">
+                    <h2>Article on {{today|date:"F d, Y"}}</h2>
+                </div>
+            <!-- END .strict-block -->
+            </div>
+
+            <div class="strict-block">
+                <div class="blog-style">
+                    {% for recent_article_list_time in article_list_time %}
+                <div class="item image-small">
+                        <div class="item-header">
+                            <a href="/article/{{recent_article_list_time.title_for_url|urlencode}}/{{recent_article_list_time.article_published_date|date:'d-m-Y'}}-{{recent_article_list_time.article_id}}"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_LARGE_PATH}}{{recent_article_list_time.photopath}}" class="item-photo" width="100%" alt=""></a>
+
+                        </div>
+                        <div class="item-content">
+                            <h3><a href="/article/{{recent_article_list_time.title_for_url|urlencode}}/{{recent_article_list_time.article_published_date|date:'d-m-Y'}}-{{recent_article_list_time.article_id}}">{{ recent_article_list_time.article_title }}</a></h3>
+                            <div class="item-icons">
+                                <!--<a href="/article/{{recent_exclusive_articles.title_for_url|urlencode}}/{{recent_exclusive_articles.article_published_date|date:'d-m-Y'}}-{{recent_exclusive_articles.article_id}}"><i class="fa fa-user"></i>Author Name</a>-->
+
+                            </div>
+
+                            <!--<div class="item-icons">
+                                <a href="blog.html"><span style="color:#A00707">Health</span></a>
+                                <a href="blog.html"><span style="color:#A00707">Wealth</span></a>
+                                <a href="blog.html"><span style="color:#A00707">Insurance</span></a>
+                            </div>-->
+
+                             {% autoescape off %}
+                            <p>{{ recent_article_list_time.article_summary }}</p>
+                             {% endautoescape %}
+                            <a href="/article/{{recent_article_list_time.title_for_url|urlencode}}/{{recent_article_list_time.article_published_date|date:'d-m-Y'}}-{{recent_article_list_time.article_id}}" class="trans-button"><i class="fa fa-align-right"></i>Read More</a>
+                        </div>
+                        <div class="clear-float"></div>
+                    </div>
+
+
+
+
+                {% endfor %}
+           <!-- END .strict-block -->
+            </div>
+            {% if article_list_time.has_previous or article_list_time.has_next %}
+            <div class="pagination">
+                {% if article_list_time.has_previous %}<a href="?page={{ article_list_time.previous_page_number }}" class="prev page-numbers">{% endif %}<i class="fa fa-caret-left"></i>{% if article_list_time.has_previous %}</a>{% endif %}
+
+                {% if show_first %}
+                    <a href="?page=1" class="page-numbers">1</a>
+                    <span class="page-numbers">...</span>
+                {% endif %}
+
+                {% for page in page_numbers %}
+                    {% if forloop.counter != 1 %} | {% endif %}
+                    <a href="?page={{page}}" class="page-numbers {% if page == article_list_time.number %} current {% endif %}">{{ page }}</a>
+                {% endfor %}
+
+                {% if show_last %}
+                    <span class="page-numbers">...</span>
+                    <a href="?page={{ last_page }}" class="page-numbers">{{ last_page }}</a>
+                {% endif %}
+
+                {% if article_list_time.has_next %}<a href="?page={{ article_list_time.next_page_number }}" class="next page-numbers">{% endif %}<i class="fa fa-caret-right"></i>{% if article_list_time.has_next %}</a>{% endif %}
+            </div>
+            {% endif %}
+
+
+            <!--<div class="pagination">
+                <a href="#" class="prev page-numbers"><i class="fa fa-caret-left"></i></a>
+                <a href="#" class="page-numbers">1</a>
+                <a href="#" class="page-numbers current">2</a>
+                <a href="#" class="page-numbers">3</a>
+                <a href="#" class="page-numbers">4</a>
+                <a href="#" class="next page-numbers"><i class="fa fa-caret-right"></i></a>
+            </div>-->
+
+        </div>
+        <!-- END .content-main -->
+        </div>
+
+
+        {% include 'base/sidebar.html' %}
+
+    <!-- END .wrapper -->
+    </div>
+{% endblock %}

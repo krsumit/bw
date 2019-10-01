@@ -1,0 +1,116 @@
+{% extends 'base/header.html' %}
+    {% block main %}
+        <div class="wrapper">
+			<!-- BEGIN .content-main -->
+			<div class="content-main with-sidebar-both left">
+				<div class="strict-block">
+					<div class="block-title">
+						<h2>{{column_author_image.0.column_name}}</h2>
+					</div>
+					<div class="article-split-second" style="margin-top:0 !important; border-top:none !important;">
+						{%  for column_author_imageed in column_author_image %}
+							<div class="item" style="margin-top:10px;">
+								<div class="item-photo">
+									<a href="/author/{{author_label}}/{{column_author_imageed.author_name_for_url|urlencode}}-{{column_author_imageed.author_id}}">
+                                        {% if column_author_imageed.author_photo %}
+                                            <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{AUTHOR_IMAGE_PATH}}{{column_author_imageed.author_photo}}" class="about-avatar" alt="" class="lazy"/>
+                                        {% else %}
+                                            <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/author_dummy.png" class="about-avatar" alt=""class="lazy" />
+                                        {% endif %}
+                                        <!--<img data-original="{{column_author_imageed.author_photo}}" alt=""class="lazy">-->
+                                    </a>
+								</div>
+								<div class="item-content">
+									<h3><a href="/author/{{author_label}}/{{column_author_imageed.author_name_for_url|urlencode}}-{{column_author_imageed.author_id}}">{{column_author_imageed.author_name}}</a></h3>
+								</div>
+							</div>
+						{%endfor%}
+					<!-- END .strict-block -->
+					</div>
+					<!-- BEGIN .strict-block -->
+					<div class="strict-block">
+						<div class="block-title">
+							<h2>Latest Articles In The Column</h2>
+						</div>
+					<!-- END .strict-block -->
+					</div>
+
+					<!-- BEGIN .strict-block -->
+					<div class="strict-block">
+						<!-- BEGIN .block-content -->
+						<div class="blog-style">
+							{%  for article in column_details %}
+                                <div class="item {% if article.image_url %} image-small {% else %} image-no {% endif %}">
+                                    <div class="item-header">
+                                        <a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}" class="item-photo">
+                                            {% if article.is_old == 1 %}
+                                                <img data-original="{{article.image_url}}" alt="" class="lazy" style=" height: 219px;"/>
+                                            {%else%}
+                                                <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_LARGE_PATH}}{{article.photopath}}" alt="" class="lazy" style=" height: 219px;"/>
+                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="item-content">
+                                        <h3>
+                                            <a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}">{{article.article_title}}</a>
+                                        </h3>
+                                        <div class="item-icons">
+                                            <a href="{{article.get_article_author_url}}"><i class="fa fa-user"></i>
+                                                {{article.author_name}}
+                                            </a>
+                                        </div>
+
+                                        <div class="item-icons">
+                                            {% autoescape off %}
+                                                {{article.get_article_category_data}}
+                                            {% endautoescape %}
+                                        </div>
+
+                                        <p>{{article.article_summary}}</p>
+                                        <a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}" class="trans-button"><i class="fa fa-align-right"></i>Read More</a>
+                                    </div>
+                                    <div class="clear-float"></div>
+                                </div>
+							{%endfor%}
+							<!-- END .block-content -->
+						</div>
+						<!-- END .strict-block -->
+					</div>
+					<!-- END .content-main -->
+				</div>
+            </div>
+            <div class="mini-sidebar">
+                <!--<div class="widget">
+                    <div class="side-banner">
+                        <a href="#" target="_blank"><img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/banner-160x250.jpg" alt="" class="lazy"></a>
+                    </div>
+                </div>-->
+
+                <div class="widget">
+                    <h3>BW Columnists</h3>
+                    <div class="middle-articles">
+                        {% for author in columnist %}
+                            <div class="item">
+                                <a href="/author/{{author_label}}/{{author.author_name_for_url|urlencode}}-{{author.author_id}}">
+									{% if author.author_photo %}
+                                        <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{AUTHOR_IMAGE_PATH}}{{author.author_photo}}" class="about-avatar" alt="" class="lazy"/>
+                                   	{% else %}
+                                        <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/author_dummy.png" class="about-avatar" alt=""class="lazy" />
+                                   	{% endif %}
+                                </a>
+                                <h4>
+                                    <a href="/author/{{author_label}}/{{author.author_name_for_url|urlencode}}-{{author.author_id}}">{{author.author_name}}</a>
+                                </h4>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                
+            </div>
+
+			<!-- BEGIN #sidebar -->
+			{% include 'base/sidebar.html' %}
+			<!-- END .wrapper -->
+		</div>
+	{% endblock %}

@@ -1,0 +1,35 @@
+
+body {
+	width: 600px;
+	padding: 30px;
+	font-family: Arial;
+	font-size: 14px;
+	line-height: 150%!important;
+	margin: 0px;
+}
+
+p {
+	margin-bottom: 1.3em!important;
+	text-align: justify;
+	display: block;
+}
+
+h1 {
+	margin-bottom: 1.2em!important;
+	line-height: 1.1em;
+}
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0px;
+	background: #ccc;
+	margin-top: 1.5em!important;
+	margin-bottom: 1.5em!important;
+}
+
+.copyright
+.wpf-source {
+	color: #aaa;
+	text-align: left!important;
+}

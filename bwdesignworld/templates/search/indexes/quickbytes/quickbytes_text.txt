@@ -1,0 +1,3 @@
+{{ object.title }}
+{{ object.quick_byte_title }}
+{{ object.body }}

@@ -1,0 +1,74 @@
+<div class="content-main">
+
+						<!-- BEGIN .strict-block -->
+						<div class="strict-block">
+							<div class="block-title">
+								<h2>Magazine Issues</h2>
+							</div>
+							<!-- BEGIN .block-content -->
+							<div class="block-content item-block-1 split-stuff blocks-4 products">
+                                <form action="" method="POST" id="yearform" >
+                                    <select name="purpose" id="yearinquery">
+                                        <option value="">---Please Select---</option>
+                                        {% for magazine_allyears in magazine_allyear%}
+                                        <option value="{{magazine_allyears.years}}">{{magazine_allyears.years}}</option>
+                                        {%endfor%}
+                                    </select>
+                                </form>
+
+                                {% for magazine_listings in magazine_listing%}
+                                 <div class="item-block product">
+                                    <a href="#" class="product-content">
+                                         <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{MAGAZINE_IMAGE_PATH}}{{magazine_listings.imagepath}}" title="{{magazine_listings.imagepath}}" height="450px"/>
+
+                                        <h3>{{magazine_listings.publish_date_m}}</h3>
+
+                                        <span class="price"><ins><span class="amount"><i class="fa fa-rupee"></i> 60.00</span></ins></span>
+                                    </a>
+                                    <a href="#" class="button add_to_cart_button">Buy</a>
+							    </div>
+                                {%endfor%}
+
+
+
+							<!-- END .block-content -->
+							</div>
+
+
+						<!-- END .strict-block -->
+						</div>
+
+					<!-- END .content-main -->
+					</div>
+
+
+  <script>
+        $(function() {
+            $("#yearinquery").change(function(event) {
+                $('.author_error').remove();
+                event.preventDefault();
+                alert('sumit');
+                var key = $('#yearform').serialize();
+                alert(key);
+                console.log("create post is working!") // sanity check
+                $.ajax({
+                    url : "/magazineissue/", // the endpoint
+                    type : "POST", // http method
+                    data : $('#yearform').serialize(), // data sent with the post request
+
+                    // handle a successful response
+                    success : function(data) {
+                        $('#contactform').val(''); // remove the value from the input
+                            $('#datacall').html(data);
+                        alert(data);
+                    },
+                    // handle a non-successful response
+                    error : function(xhr,errmsg,err) {
+                        $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+" <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                    }
+                });
+            });
+        });
+
+    </script>

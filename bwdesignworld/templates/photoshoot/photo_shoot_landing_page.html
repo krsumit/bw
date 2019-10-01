@@ -1,0 +1,151 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div class="wrapper">
+        <!-- BEGIN .content-main -->
+        <div class="content-main with-sidebar-both left">
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block">
+                <div class="main-article">
+                    {% for photoshoot_datas in photoshoot_data %}
+                        <h1>{{photoshoot_datas.photo_shoot_title}}</h1>
+                        <div class="social-article">
+                            <!-- Start of addthis side sharing code -->
+                            <div class="addthis_sharing_toolbox"></div>
+                            <!-- End of addthis side sharing code -->
+                        </div>
+                        <p><i>{{photoshoot_datas.photo_shoot_description}}</i></p>
+                        <div class="article-header"style="border-top:1px solid #e8e8e8">
+                            <div class="article-meta">
+                                <div class="meta-date">
+                                    <span class="date">{{photoshoot_datas.photo_shoot_published_date|date:"d"}}</span>
+                                    <span class="month">{{photoshoot_datas.photo_shoot_published_date|date:"F, Y"}}</span>
+                                    <span class="author">by <a href="#">BW Online Bureau</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    {%endfor%}
+                    {% for photoshoot_images in photoshoot_image %}
+                        <div class="article-header" style="border-top:none !important;">
+                            <h2>{{photoshoot_images.photo_shoot_photo_title}}</h2>
+                            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{PHOTOSHOOT_IMAGE_PATH}}{{photoshoot_images.photo_shoot_photo_name}}" class="article-photo" alt="">
+                            <div class="article-meta">
+                                 <div class="meta-date">
+                                    <span class="author">Photo by <a href="#">{{photoshoot_images.photo_by}}</a></span>
+                                </div>
+                            </div>
+                            <p>{{photoshoot_images.photo_shoot_photo_description}}</p>
+                        </div>
+                    {% endfor%}
+                    <div class="social-article">
+                        <!-- Start of addthis side sharing code -->
+                        <div class="addthis_sharing_toolbox"></div>
+                        <!-- End of addthis side sharing code -->
+                    </div>
+                </div>
+                <!-- END .strict-block -->
+            </div>
+
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block">
+                <div class="main-banner" style="height:90px !important;">
+                    <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                  <!-- Ad Slot 4 tag: --> 
+                        <!-- begin ZEDO for channel: ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                        <div id="zt_249046_4" style="display:show"> 
+                        <script id="zt_249046_4" language="javascript"> 
+
+                       if(typeof zmt_mtag !='undefined' && typeof zmt_mtag.zmt_render_placement !='undefined')
+                       {
+                            zmt_mtag.zmt_render_placement(p249046_4);
+                       }
+                        </script>
+                        </div>
+                        <!-- end ZEDO for channel:  ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                </div>
+            </div>
+            <!-- END .strict-block -->
+
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block">
+                <div class="block-title">
+                    <h2>Around The World</h2>
+                </div>
+                <!-- BEGIN .block-content -->
+                <div class="block-content item-block-1 split-stuff">
+                    <!-- Out Brain Code -->
+                    <div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="BusinessWorld"></div>
+                    <script type="text/javascript" src="http://widgets.outbrain.com/outbrain.js"></script>
+                    <!-- End -->
+                </div>
+            <!-- END .strict-block -->
+            </div>
+
+            <!-- BEGIN .strict-block -->
+            <!--<div class="strict-block">
+                <div class="block-title">
+                    <h2>Our Publications</h2>
+                </div>
+                <!-- BEGIN .block-content -->
+                <!--<div class="block-content item-block-2 split-stuff blocks-3">
+                    <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/our_pub_banner.jpg" width="100%"/>
+                    <a href="http://subscribe.businessworld.in">
+                        <input value="Subscribe To Print Copies" type="submit">
+                    </a>
+                    <a href="http://www.magzter.com/publishers/GBN-Media-Pvt-Ltd">
+                        <input value="Subscribe To Digital Copies" style="margin-top:5px;" type="submit">
+                    </a>
+                </div>
+                <!-- END .block-content -->
+            <!--</div>-->
+            <!-- END .strict-block -->
+
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block">
+                <div class="main-banner" style="height:90px !important;">
+                    <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                   <!-- Ad Slot 4 tag: --> 
+                        <!-- begin ZEDO for channel: ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                        <div id="zt_249046_4" style="display:show"> 
+                        <script id="zt_249046_4" language="javascript"> 
+
+                       if(typeof zmt_mtag !='undefined' && typeof zmt_mtag.zmt_render_placement !='undefined')
+                       {
+                            zmt_mtag.zmt_render_placement(p249046_4);
+                       }
+                        </script>
+                        </div>
+                        <!-- end ZEDO for channel:  ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                </div>
+            </div>
+            <!-- END .strict-block -->
+        <!-- END .content-main -->
+        </div>
+
+        <div class="mini-sidebar">
+            <div class="widget">
+                <div class="side-banner">
+                    <a href="#" target="_blank"><img src="photo-landing-page_files/banner-160x250.jpg" alt=""></a>
+                </div>
+            </div>
+            <div class="widget">
+                <h3>Other Albums</h3>
+                <div class="middle-articles">
+                    {% for photoshoot_listings in photoshoot_listing %}
+                        <div class="item">
+                            <a href="{{photoshoot_listings.get_absolute_url}}"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{PHOTOSHOOT_IMAGE_PATH}}{{photoshoot_listings.photo_shoot_photo_name}}" alt=""></a>
+                            <h4><a href="{{photoshoot_listings.get_absolute_url}}">{{photoshoot_listings.photo_shoot_title}}</a></h4>
+                        </div>
+                     {%endfor%}
+                </div>
+            </div>
+            <div class="widget">
+                <div class="side-banner">
+                    <a href="#" target="_blank"><img style="height:600px !important;" src="photo-landing-page_files/banner-160x250.jpg" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN #sidebar -->
+        {% include 'base/sidebar.html' %}
+        <!-- END .wrapper -->
+    </div>
+{% endblock %}

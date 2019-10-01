@@ -1,0 +1,59 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div id="page_content_to_show">
+        <div class="wrapper">
+            <!-- BEGIN .content-main -->
+            <div class="content-main">
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h5 style="font-size:18px;">Web Exclusives: From BW Online Reporters</h5>
+                    </div>
+
+                    <!-- BEGIN .block-content -->
+                    <div style="text-align: center;" id="item-block">
+                        <!--<img src="/static/images/loading_horizontal.gif" alt="Loading content" style="margin:5% 0;"/>-->
+                        {% autoescape off %}
+                            {{web_exclusive_dta}}
+                        {% endautoescape %}
+                        <!-- END .block-content -->
+                    </div>
+                    <!-- END .strict-block -->
+                </div>
+
+                <!-- END .content-main -->
+            </div>
+
+            <!-- END .wrapper -->
+        </div>
+        <!--<script type="text/javascript">
+            $(window).load(function ()
+            {
+
+                $(function () {
+                    $("img.lazyed").lazyload();
+                    $("img.lazy").lazyload();
+                });
+                $(function () {
+                    $(".strict-block").lazyload({effect: 'fadeIn'});
+                });
+
+                /*var get_data = 'exclusiveonweb';
+                var popular_obj = $(this).find('div.photo-gallery-grid');
+                $(popular_obj).html('<div class="item-block"><img src="/static/images/loading.gif" alt="Loading content" style="margin:5% 0;"/></div>');
+                $.ajax({
+                    url: "/" + get_data + "/",
+                    type: "post",
+                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    success: function (response) {
+                        //alert(response)
+                        $('#item-block').html(response);
+                    }
+                });*/
+
+            });
+        </script>-->
+    </div>
+
+{% endblock %}

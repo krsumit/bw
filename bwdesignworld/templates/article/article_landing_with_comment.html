@@ -1,0 +1,196 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div id="main_recent_article_div">
+        <!-- BEGIN .wrapper -->
+        <div class="wrapper url-changer">
+		<!-- .with-sidebar / .with-sidebar-both / .with-middle -->
+            <!-- BEGIN .content-main -->
+            <div class="content-main with-sidebar left">
+                <hr />
+                <div>
+                    <p style="color:#353535; font-size: 16px; font-weight: bold;">
+                        To go back to the article <a style="background: #F45881; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="/article/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}">Click Here!</a>
+                    </p>
+                </div>
+                <hr />
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    {% if author_details.0 %}
+                        {% if author_details.0.author_type != 1 and author_details.0.author_type != 2 and author_details.0.author_type != 3 %}
+                            <div class="block-title">
+                                {% if author_details.0.author_type == 4 %}
+                                    <h2>{{column_details.0.column_name}}</h2>
+                                    <a href="/column/{{column_details.0.column_nameed_for_url|urlencode}}-{{column_details.0.column_id}}" class="panel-title-right">View More</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="main-article">
+                        {% if author_details.0 %}
+                            {% if author_details.0.author_type != 1 and author_details.0.author_type != 2 and author_details.0.author_type != 3 %}
+                                <div class="about-author" style="margin-top:0 !important; border-top:none !important;">
+                                    {% if author_details.0.author_photo %}
+                                        <a href="#"><img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{AUTHOR_IMAGE_PATH}}{{author_details.0.author_photo}}" class="about-avatar" alt="" class="lazy"/></a>
+                                   {% else %}
+                                        <a href="#"><img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/author_dummy.png" class="about-avatar" alt=""class="lazy" /></a>
+                                   {% endif %}
+                                    <div class="about-content">
+                                        <h3>{{author_details.0.author_name}}</h3>
+                                        <p>{{author_details.0.author_bio}}</p>
+                                        <a href="/author/{{author_label}}/{{author_details.0.author_name_for_url|urlencode}}-{{author_details.0.author_id}}" class="pull-right" style="margin-top:5px;">More From The Author >></a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <style>
+                            @media screen and (min-width: 976px) {
+                                .main-article .big_article_header{font-size:45px !important;}
+                                .main-article .big_article_summary{font-size:25px;}
+                            }
+                        </style>
+                        <h1 class="big_article_header">{{article_detail.article_title}}</h1>
+
+                       
+
+                        <!-- Start of addthis side sharing code -->
+                        <div class="addthis_sharing_toolbox"></div>
+                        <!-- End of addthis side sharing code -->
+
+                        {% autoescape off %}
+                            <p class="big_article_summary"><i>{{article_detail.article_summary}}</i></p>
+                        {% endautoescape %}
+
+                        <hr />
+                        <div>
+                            <p style="color:#353535; font-size: 16px; font-weight: bold;">
+                                To go back to the article <a style="background: #F45881; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="/article/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}">Click Here!</a>
+                            </p>
+                        </div>
+                        <hr />
+
+                        <!--Start NLPCaptcha Embed Code -->
+                        <script type="text/javascript">
+                            var NLPOptions = {
+
+                                key:'5c2c4ba7a2d943c0291b3d099f93e851', // PUBLISHER_KEY
+
+                                komentbox_page_identifier: '', // to identify the current page, If identifier is undefined, the komentbox_page_url will be used
+
+                                komentbox_page_url: '/article/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}', // URL of the current page. If undefined, will take the window.location.href. This URL is used to look up or create a thread if identifier is undefined
+
+                                komentbox_page_title: '' // the title of the current page, If undefined, will use the <title> attribute of the page
+                            };
+
+                            </script>
+                            <script type="text/javascript" src="http://komentbox.nlpcaptcha.in/js/comments.js"></script>
+                            <!--End NLPCaptcha Embed Code -->
+
+                        <hr />
+                    </div>
+
+                <!-- END .strict-block -->
+                </div>
+
+            <!-- END .content-main -->
+            </div>
+
+            <!-- Mini Sidebar Start -->
+            <!--<div class="mini-sidebar">
+
+                <!--<div class="widget">
+                    <div class="side-banner">
+                        <a href="#" target="_blank"><img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/banner-160x250.jpg" alt="" class="lazyed"/></a>
+                    </div>
+                </div>-->
+
+                <!--{% if related_content.0 %}
+                    <div class="widget">
+                        <h3>Related Articles</h3>
+                        <div class="middle-articles">
+                            {% for related in related_content %}
+                                <div class="item">
+
+                                    <a href="/article/{{related.title_for_url|urlencode}}/{{related.article_published_date|date:'d-m-Y'}}-{{related.article_id}}">
+                                          {% if related.is_old == 1 %}
+
+                                        <img data-original="{{ related.image_url }}" style="width:100%;" alt="" class="lazyed"/>
+                                        {% else %}
+                                        <img data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_MEDIUM_PATH}}{{ related.photopath }}" style="width:160px; height:95px;" alt="" class="lazyed"/>
+                                        {% endif %}
+                                    </a>
+                                    <h4><a href="/article/{{related.title_for_url|urlencode}}/{{related.article_published_date|date:'d-m-Y'}}-{{related.article_id}}">{{related.article_title}}</a></h4>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if sponsored_detail.0 %}
+                    <div class="widget">
+                        <h3>Sponsored</h3>
+                        <div class="middle-articles">
+                            {% for sponsored in sponsored_detail %}
+                            <div class="item">
+                                <a href="/sponser/{{sponsored.title_for_url|urlencode}}/{{sponsored.sponsoredposts_published_date|date:'d-m-Y'}}-{{sponsored.sponsoredposts_id}}">
+                                    {% if sponsored.image_url %}
+                                        <img data-original="{{sponsored.image_url}}" style="width:100%;" alt="" class="lazyed"/>
+                                    {%endif%}
+                                </a>
+                                <h4><a href="/sponser/{{sponsored.title_for_url|urlencode}}/{{sponsored.sponsoredposts_published_date|date:'d-m-Y'}}-{{sponsored.sponsoredposts_id}}">{{sponsored.sponsoredposts_title}}</a></h4>
+                            </div>
+                            {%endfor%}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="widget">
+                    <h3>BW Network</h3>
+                    <div class="middle-articles">
+                        {% for entry in feeds_cric.entries|slice:":2" %}
+                            <div class="item">
+                                <h4><a href="{{entry.link}}">{{ entry.title}}</a></h4>
+                                <a href="http://bwcio.com" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW CIO</b></a>
+                            </div>
+                        {%endfor%}
+                        {% for entryed in feeds_cric.entries|slice:":2" %}
+                            <div class="item">
+                                <h4><a href="{{entryed.link}}">{{ entryed.title}}</a></h4>
+                                <a href="http://bwhotelier.com" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW HOTELIER</b></a>
+                            </div>
+                        {%endfor%}
+                        {% for entrys in feeds_cric.entries|slice:":2"  %}
+                            <div class="item">
+                                <h4><a href="{{entrys.link}}">{{entrys.title}}</a></h4>
+                                <a href="http://bwsmartcities.com" style="color:#aaa; line-height: 32px; font-size:14px;"><b>BW SMARTCITIES</b></a>
+                            </div>
+                        {%endfor%}
+                    </div>
+                </div>
+
+                <div class="widget" >
+                    <div class="side-banner">
+                        <!-- /133806567/Article_Page_Middle_Panel_2 -->
+                        <!--<div id='div-gpt-ad-1447742601367-0'>
+                            <script type='text/javascript'>
+                                googletag.cmd.push(function() { googletag.display('div-gpt-ad-1447742601367-0'); });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+            </div>-->
+            <!-- Mini Sidebar End -->
+
+            <!-- BEGIN #sidebar -->
+            {% include 'base/sidebar.html' %}
+
+            <!-- Gist Summariser Code -->
+
+            <!-- End of Gist Summariser Code -->
+
+            <!-- END .wrapper -->
+        </div>
+    </div>
+{% endblock %}

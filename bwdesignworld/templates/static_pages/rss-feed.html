@@ -1,0 +1,53 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <style>
+        .rss_feeds p {padding-bottom: 10px;}
+    </style>
+    <!-- BEGIN .wrapper -->
+    <div class="wrapper">
+
+        <!-- .with-sidebar / .with-sidebar-both / .with-middle -->
+        <!-- BEGIN .content-main -->
+        <div class="content-main with-sidebar left">
+
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block">
+
+                 <div class="block-title">
+                        <h2>RSS Feed</h2>
+                    </div>
+
+                 <div class="paragraph-row" style="text-align:center !important;">
+
+                        <div class="column4 rss_feeds" style="margin-top:10px;">
+                            <p><a href="/rss/all-article.xml"><i class="fa fa-rss"></i> All Articles</a></p>
+                            <p><a href="/rss/interviews.xml"><i class="fa fa-rss"></i> Interviews</a></p>
+                            <p><a href="/rss/news-article.xml"><i class="fa fa-rss"></i> News Article</a></p>
+                        </div>
+
+                        <div class="column4 rss_feeds" style="margin-top:10px;">
+                            <p><a href="/rss/columnist-articles.xml"><i class="fa fa-rss"></i> Columnist Article</a></p>
+                            <p><a href="/rss/featured-article.xml"><i class="fa fa-rss"></i> Featured Article</a></p>
+                            <p><a href="/rss/important-articles.xml"><i class="fa fa-rss"></i> Important Article</a></p>
+                        </div>
+
+                        <div class="column4 rss_feeds" style="margin-top:10px;">
+                            <p><a href="/rss/todays-article.xml"><i class="fa fa-rss"></i> Today's Article</a></p>
+                            <p><a href="/rss/web-exclusive-articles.xml"><i class="fa fa-rss"></i> Exclusive Article</a></p>
+                        </div>
+
+                    </div>
+
+
+            <!-- END .strict-block -->
+            </div>
+
+
+        <!-- END .content-main -->
+        </div>
+
+        <!-- BEGIN #sidebar -->
+        {% include 'base/small_sidebar.html' %}
+        <!-- END .wrapper -->
+	</div>
+{% endblock %}

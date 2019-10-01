@@ -1,0 +1,256 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <!-- BEGIN .wrapper -->
+    <script type="text/javascript" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/jscript/body.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/jscript/sweetalert.css">
+    <script>
+        function addemailfunction()
+        {
+            var valid=1
+            $('#new input').removeClass('error');
+            if($('input[name=subscriber_email_id]').val().trim()==0){
+            valid=0;
+            $('input[name=subscriber_email_id]').addClass('error');
+                $('input[name=subscriber_email_id]').after(errorMessage('Please fill email_id'));
+            }
+            if (valid == 0)
+                return false;
+            else
+                return true;
+        }
+        function errorMessage($msg) {
+            return '<div class="error author_error">' + $msg + '</div>';
+        }
+
+    </script>
+    <style>
+        .tooltip{
+            display: inline;
+            position: relative;
+        }
+        .tooltip:hover:after{
+            background: #333;
+            background: rgba(0,0,0,.8);
+            border-radius: 5px;
+            bottom: 26px;
+            color: #fff;
+            content: attr(title);
+            right: -100%;
+            padding: 5px 15px;
+            position: absolute;
+            z-index: 98;
+            width: 220px;
+        }
+        .tooltip:hover:before{
+            border: solid;
+            border-color: #333 transparent;
+            border-width: 6px 6px 0 6px;
+            bottom: 20px;
+            content: "";
+            left: 0%;
+            position: absolute;
+            z-index: 99;
+        }
+    </style>
+
+    <div class="paragraph-row">
+							
+		<div class="column8">
+            <div class="strict-block">
+                {% if author_details.0.author_type != 1 and author_details.0.author_type != 2 %}
+                    <div class="block-title">
+                        {% if author_details.0.author_type == 4 and column_details_data != '' %}
+                            <h2>{{column_details.column_name}}</h2>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="about-author" style="margin-top:0 !important; border-top:none !important;">
+                   {% if author_details.0.author_photo %}
+                        <a href="#"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{AUTHOR_IMAGE_PATH}}{{author_details.0.author_photo}}" class="about-avatar " alt="{{author_details.0.author_photo}}"/></a>
+                   {% else %}
+                        <a href="#"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/author_dummy.png" class="about-avatar " alt="author_dummy.png"/></a>
+                   {% endif %}
+                    <div class="about-content" >
+                        <h3>{{author_details.0.author_name}}</h3>
+                        <p>{{author_details.0.author_bio}}</p>
+                    </div>
+                </div>
+                <div class="paragraph-row">
+
+                    <div class="main-article" style="width:98%;">
+                        <form  method="post" id="newsletter_form" >
+                            {% csrf_token %}
+                            <input type="hidden" name="newsletter_type_id" value="{{author_details.0.author_id}}">
+                            <input value="" placeholder="To Follow The Author Enter Your E-mail Here.." type="email" name="subscriber_email_id" id="subscriber_email_id" required style="width:50%;">
+
+                        <a href="" style="line-height:29px" class="button" id="newsletter_submit"><i class="fa fa-plus"></i> Follow</a>
+                            <a href="#"  style="line-height:32px; padding:5px 8px; border-radius:100%; border:1px solid #5E5E5E;" title="You will get an email notification every time the author publishes a new story on BWHotelier" class="tooltip"><span title="">?</span></a>
+                        </form>
+                    </div>
+                </div>
+            <!-- END .strict-block -->
+            </div>
+
+
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block">
+                <div class="block-title">
+                    <h2>{{page_title_h1}}</h2>
+                </div>
+            <!-- END .strict-block -->
+            </div>
+
+            <!-- BEGIN .strict-block -->
+            <div class="strict-block" id="main_recent_article_div">
+                <!-- BEGIN .block-content -->
+                <div class="blog-style url-changer" id="recent_article_data_{{recent_articles.number}}" data-page-id="{{recent_articles.number}}" data-url="{{view_page_url}}/?page={{recent_articles.number}}" data-title="All Articles Page {{recent_articles.number}}">
+
+					{% for article in recent_articles %}
+                        <div class="item {% if article.image_url or article.photopath %} image-small {% else %} image-no {% endif %}">
+                            <div class="item-header">
+                                {% if article.is_old == 1 %}
+                                <a href="#" class="item-photo"><img src="{{article.image_url}}" alt="{{article.image_url}}" /></a>
+                                {% else %}
+                                    <a href="#" class="item-photo"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_LARGE_PATH}}{{article.photopath}}" alt="{{article.photopath}}" /></a>
+                                {% endif %}
+                            </div>
+
+							<div class="item-content">
+								<h3><a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}">{{article.article_title}}</a></h3>
+								<div class="item-icons">
+									<a href="{{article.get_article_author_url}}"><i class="fa fa-user"></i>{{article.author_name}}</a>
+								</div>
+
+								<div class="item-icons">
+                                    {% autoescape off %}
+                                        {{article.get_article_category_data}}
+                                    {% endautoescape %}
+								</div>
+
+								<p>{{article.article_summary}}</p>
+								<a href="/article/{{article.title_for_url|urlencode}}/{{article.article_published_date|date:'d-m-Y'}}-{{article.article_id}}" class="trans-button"><i class="fa fa-align-right"></i>Read More</a>
+							</div>
+							<div class="clear-float"></div>
+						</div>
+					{% endfor %}
+
+				<!-- END .block-content -->
+				</div>
+
+			 {% if recent_articles %}
+        <div class="pagination">
+            {% if previous_page != 0 %}<a href="?page={{ previous_page }}" class="prev page-numbers">{% endif %}<i class="fa fa-caret-left"></i>{% if previous_page != 0 %}</a>{% endif %}
+
+            {% if show_first %}
+                <a href="?page=1" class="page-numbers">1</a>
+                <span class="page-numbers">...</span>
+            {% endif %}
+
+            {% for page in page_numbers %}
+                {% if forloop.counter != 1 %} | {% endif %}
+                <a href="?page={{page}}" class="page-numbers {% if page == current_page %} current {% endif %}">{{ page }}</a>
+            {% endfor %}
+
+            {% if show_last %}
+                <span class="page-numbers">...</span>
+                <a href="?page={{last_page}}" class="page-numbers">{{ last_page }}</a>
+            {% endif %}
+
+            {% if next_page < last_page %}<a href="?page={{ next_page }}" class="next page-numbers">{% endif %}<i class="fa fa-caret-right"></i>{% if next_page < last_page %}</a>{% endif %}
+        </div>
+    {% endif %}
+    <!-- End -->
+            <!-- END .strict-block -->
+            </div>
+
+        <!-- END .content-main -->
+        </div>
+
+        
+        <!-- BEGIN #sidebar -->
+        {% include 'base/sidebar.html' %}
+    <!-- END .wrapper -->
+    </div>
+    <script>
+        $(function() {
+            $("a#newsletter_submit").click(function(event) {
+
+                event.preventDefault();
+
+                $('.author_error').removeClass('error');
+                if($('#subscriber_email_id').val().trim()==0){
+                 swal({
+                        title: "Sorry!",
+                        text: "Something seem to have gone wrong! Check your email ID and try again.",
+                        type: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
+
+                else if(isValidEmailAddress($('#subscriber_email_id').val())) {
+
+
+
+                    //console.log("create post is working!") // sanity check
+                    $.ajax({
+                        url: "/author_newsletter_Subscriber_details/", // the endpoint
+                        type: "POST", // http method
+                        data: $('#newsletter_form').serialize(), // data sent with the post request
+                        // handle a successful response
+                        success: function (json) {
+                            $('#subscriber_email_id').val(''); // remove the value from the input
+                            console.log(json); // log the returned json to the console
+                            console.log("success"); // another sanity check
+                            $.each(json, function (index, element) {
+                                if(index == 'checkuser') {
+                                swal({
+                                title: "Oops!",
+                                text: "Sorry you seem to have already subscribed to this newsletter!",
+                                type: "error",
+                                 confirmButtonText: "OK"
+                                });
+                                }
+                                if (index == 'success') {
+                                    swal({
+                                        title: "Thank You!",
+                                        text: "you have successfully followed the Reporter",
+                                        type: "success",
+                                        confirmButtonText: "OK"
+                                    });
+                                }
+                                if (index == 'error') {
+                                    swal({
+                                        title: "Sorry!",
+                                        text: "Something seem to have gone wrong! Check your email ID and try again.",
+                                        type: "error",
+                                        confirmButtonText: "OK"
+                                    });
+                                }
+                            });
+                        },
+                        // handle a non-successful response
+                        error: function (xhr, errmsg, err) {
+                            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg + " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                        }
+                    });
+                }else{
+                    swal({
+                        title: "Sorry!",
+                        text: "Please enter valid Email Id",
+                        type: "error",
+                        confirmButtonText: "OK"
+                    });
+                }
+            });
+        });
+        function isValidEmailAddress(emailAddress) {
+            var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i);
+            // alert( pattern.test(emailAddress) );
+            return pattern.test(emailAddress);
+        };
+        function errorMessage($msg) {
+            return '<div class="error author_error">' + $msg + '</div>';
+        }
+	</script>
+{% endblock %}

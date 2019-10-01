@@ -1,0 +1,201 @@
+{% extends 'base/header.html' %}
+{% block main %}
+                <div class="wrapper">
+
+					<!-- BEGIN .content-main -->
+					<div class="content-main with-sidebar left">
+
+                        <!-- BEGIN .strict-block -->
+						<!--<div class="strict-block">
+
+							<div class="block-title">
+								<h2>Currently Running</h2>
+							</div>
+						<!-- END .strict-block -->
+						<!--</div>
+
+                        <!-- BEGIN .strict-block -->
+						<!--<div class="strict-block">
+
+							<div class="main-article">
+								<h1>BW Hotelier Smart Hotels Conclave & Expo 2015</h1>
+							</div>
+						<!-- END .strict-block -->
+						<!--</div>
+
+                        <iframe width="865" height="515"
+src="http://5.153.30.196/businessworld/vcm/slates.aspx">
+</iframe>-->
+						<!-- BEGIN .strict-block -->
+						<div class="strict-block">
+
+							<div class="block-title">
+								<h2>Upcoming Events</h2>
+							</div>
+						<!-- END .strict-block -->
+						</div>
+
+                        <div class="strict-block">
+                            <div class="blog-style">
+                                {% for event_article in event_articles %}
+                            <div class="item image-small">
+									<div class="item-header"style="height:auto !important;">
+										<a href="{{event_article.image_url}}" target="_blank"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{EVENT_IMAGE_PATH}}{{ event_article.imagepath }}" class="item-photo"  width="100%" alt=""></a>
+
+									</div>
+									<div class="item-content">
+										<h3><a href="{{event_article.image_url}} " target="_blank">{{ event_article.title }}</a></h3>
+										
+                                        <!--<div class="item-icons">
+											<a href="blog.html"><span style="color:#A00707">Health</span></a>
+                                            <a href="blog.html"><span style="color:#A00707">Wealth</span></a>
+                                            <a href="blog.html"><span style="color:#A00707">Insurance</span></a>
+										</div>-->
+
+										 {% autoescape off %}
+										<p>{{ event_article.description }}</p>
+										{% endautoescape %}
+										<div class="item-icons">
+
+                                            <a href="#">Start Date :<i class="fa fa-calendar"></i>{{event_article.start_date|date:'F d, Y'}}</a> --  <a href="#">End Date :<i class="fa fa-calendar"></i>{{event_article.end_date|date:'F d, Y'}}</a>
+                                        </div>
+										<a href="{{event_article.image_url}} " target="_blank"class="trans-button"><i class="fa fa-align-right"></i>VISIT EVENT WEBSITE</a>
+									</div>
+									<div class="clear-float"></div>
+								</div>
+
+
+
+
+                            {% endfor %}
+                       <!-- END .strict-block -->
+						</div>
+
+                     </div>
+						{% if event_articles.has_previous or event_articles.has_next %}
+                        <div class="pagination">
+                            {% if event_articles.has_previous %}<a href="?page={{ event_articles.previous_page_number }}" class="prev page-numbers">{% endif %}<i class="fa fa-caret-left"></i>{% if event_articles.has_previous %}</a>{% endif %}
+
+                            {% if show_first %}
+                                <a href="?page=1" class="page-numbers">1</a>
+                                <span class="page-numbers">...</span>
+                            {% endif %}
+
+                            {% for page in page_numbers %}
+                                {% if forloop.counter != 1 %} | {% endif %}
+                                <a href="?page={{page}}" class="page-numbers {% if page == event_articles.number %} current {% endif %}">{{ page }}</a>
+                            {% endfor %}
+
+                            {% if show_last %}
+                                <span class="page-numbers">...</span>
+                                <a href="?page={{ last_page }}" class="page-numbers">{{ last_page }}</a>
+                            {% endif %}
+
+                            {% if event_articles.has_next %}<a href="?page={{ event_articles.next_page_number }}" class="next page-numbers">{% endif %}<i class="fa fa-caret-right"></i>{% if event_articles.has_next %}</a>{% endif %}
+                        </div>
+                        {% endif %}
+						<!--<div class="pagination">
+							<a href="#" class="prev page-numbers"><i class="fa fa-caret-left"></i></a>
+							<a href="#" class="page-numbers">1</a>
+							<a href="#" class="page-numbers current">2</a>
+							<a href="#" class="page-numbers">3</a>
+							<a href="#" class="page-numbers">4</a>
+							<a href="#" class="next page-numbers"><i class="fa fa-caret-right"></i></a>
+						</div>-->
+
+
+
+						<!-- BEGIN .strict-block -->
+						<div class="strict-block">
+
+							<div class="block-title">
+								<h2>Past Events</h2>
+							</div>
+
+                            <div class="main-article">
+
+
+                                     {% for event_articled in eventpast_articles %}
+                                <h1 style=" margin-top:10px;">{{event_articled.title}}</h1>
+                                  <div class="paragraph-row">
+
+                                                            <div class="column5">
+                                                                <!-- BEGIN .article-double-main -->
+                                                                <div class="article-double-main">
+                                                                    <div class="item-photo">
+                                                                                <a href="{{event_articled.image_url}}" target="_blank"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{EVENT_IMAGE_PATH}}{{ event_articled.imagepath }}" class="item-photo"  width="100%" alt=""></a>
+
+
+
+                                                                    </div>
+                                                                    <div class="item-content">
+
+                                                                        <div class="item-icons">
+                                                                           <a href="{{event_articled.image_url}}">Start Date :<i class="fa fa-calendar"></i>{{event_articled.start_date|date:'F d, Y'}}  End Date :<i class="fa fa-calendar"></i>{{event_articled.end_date|date:'F d, Y'}}</a>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                <!-- END .article-double-main -->
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="column7">
+                                                                <!-- BEGIN .article-double-side -->
+                                                                <div class="article-double-side">
+                                                                    {%  for arcticleall_event in event_articled.get_article_author_name %}
+                                                                        <div class="item" >
+
+                                                                            <div class="item-content" style="margin-left:0 !important">
+                                                                                <h3>
+                                                                                    <a href="/article/{{arcticleall_event.title_for_url|urlencode}}/{{arcticleall_event.article_published_date|date:'d-m-Y'}}-{{arcticleall_event.article_id}}" >{{arcticleall_event.article_title}}</a>
+
+                                                                                </h3>
+                                                                                <div class="item-links">
+                                                                                    <a href="/article/{{arcticleall_event.title_for_url|urlencode}}/{{arcticleall_event.article_published_date|date:'d-m-Y'}}-{{arcticleall_event.article_id}}"><i class="fa fa-align-right"></i><b>Read More</b></a>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    {% endfor %}
+
+
+
+
+                                                                    <!-- End -->
+                                                                <!-- END .article-double-side -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                <div class="spacer-2"></div>
+                                    {%endfor%}
+
+
+                                         <div>
+                                              {% if eventpast_articles.has_previous %}
+
+                <a class="button" href='{{ request.path }}?page={{eventpast_articles.previous_page_number}}'><i class="fa fa-arrow-left"></i>&nbsp; Previous</a>
+
+    {% endif %}
+                                               {% if eventpast_articles.has_next %}
+                                                <a href="{{ request.path }}?page={{eventpast_articles.next_page_number}}" class="button right">Next &nbsp;<i class="fa fa-arrow-right"></i></a>
+
+    {% endif %}
+                                            </div>
+
+
+                            </div>
+				<!-- END .strict-block -->
+			</div>
+					
+
+					</div>
+
+
+					{% include 'base/sidebar.html' %}
+
+				<!-- END .wrapper -->
+				</div>
+{% endblock %}

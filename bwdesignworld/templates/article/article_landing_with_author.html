@@ -1,0 +1,599 @@
+{% extends 'base/header.html' %}
+{% block main %}
+<script type="text/javascript" src="https://static.businessworld.in/static/jscript/header.min.js"></script>
+<!-- Start of Facebook Head Code for Like Button -->
+<!--<div id="fb-root"></div>-->
+
+<script>(function(d, s, id) {
+
+  var js, fjs = d.getElementsByTagName(s)[0];
+
+  if (d.getElementById(id)) return;
+
+  js = d.createElement(s); js.id = id;
+
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=409876282497774";
+
+  fjs.parentNode.insertBefore(js, fjs);
+
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- end of Facebook Head Code for Like Button -->
+
+    
+   <!--<script type="text/javascript" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/jscript/body.min.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/jscript/sweetalert.css">
+   	
+    <script>
+            function addemailfunction(){
+            var valid=1
+            $('#new input').removeClass('error');
+            if($('input[name=subscriber_email_id]').val().trim()==0){
+            valid=0;
+            $('input[name=subscriber_email_id]').addClass('error');
+                $('input[name=subscriber_email_id]').after(errorMessage('Please fill email_id'));
+            }
+            if (valid == 0)
+                return false;
+            else
+                return true;
+        }
+        function errorMessage($msg) {
+            return '<div class="error author_error">' + $msg + '</div>';
+        }
+    </script>
+        <!-- BEGIN .wrapper -->
+        <div class="paragraph-row" id="recent_article_data_{{article_detail.article_id}}" data-page-id="{{article_detail.article_id}}" data-url="/article/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}/?nx_ar={{next_article.article_id}}" data-title="{{meta_title}}" data-meta-description="{{meta_description}}" data-meta-keyword="{{meta_keyword}}" data-og-title="{{og_title}}" data-og-url="{{og_url}}" data-og-image="{{og_image}}">
+	
+            <div class="column8">
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    {% if author_detail %}
+                        {% if author_detail.author_type != 1 and author_detail.author_type != 2 and author_detail.author_type != 3 %}
+                            <div class="block-title">
+                                {% if author_detail.author_type == 4 %}
+                                    <h2>{{column_details.0.column_name}}</h2>
+                                    <a href="/column/{{column_details.0.column_nameed_for_url|urlencode}}-{{column_details.0.column_id}}" class="panel-title-right">View More</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="main-article">
+                        {% if author_detail %}
+                            {% if author_detail.author_type != 2 and author_detail.author_type != 1 and author_detail.author_type != 3 %}
+                                <div class="about-author" style="margin-top:0 !important; border-top:none !important;">
+                                    {% if author_detail.author_photo %}
+                                        <a href="/author/{{author_label}}/{{author_detail.author_name_for_url|urlencode}}-{{author_detail.author_id}}">
+                                            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{AUTHOR_IMAGE_PATH}}{{author_detail.author_photo}}" class="about-avatar " alt="" />
+                                        </a>
+                                   {% else %}
+                                        <a href="/author/{{author_label}}/{{author_detail.author_name_for_url|urlencode}}-{{author_detail.author_id}}">
+                                            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/author_dummy.png" class="about-avatar " alt="" />
+                                        </a>
+                                   {% endif %}
+                                    <div class="about-content">
+                                        <h3>{{author_detail.author_name}}</h3>
+                                        <p>{{author_detail.author_bio}}</p>
+                                        <a href="/author/{{author_label}}/{{author_detail.author_name_for_url|urlencode}}-{{author_detail.author_id}}" class="pull-right" style="margin-top:5px;">More From The Author >></a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <style>
+                            @media screen and (min-width: 976px) {
+                                .main-article .big_article_header{font-size:45px !important;}
+                                .main-article .big_article_summary{font-size:25px;}
+                            }
+                        </style>
+                        <h1 class="big_article_header">{{article_detail.article_title}}</h1>
+                           <!-- Start of Facebook Code for Like button near title -->
+                           <div class="fb-like" data-href="https://www.facebook.com/Businessworld.India/" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+                          <!-- End of Facebook Code for Like button near title -->
+                        
+
+                        {% autoescape off %}
+                            <div style="margin-top:20px;"><p class="big_article_summary"><i>{{article_detail.article_summary}}</i></p></div>
+                        {% endautoescape %}
+
+                        <!-- Start of addthis side sharing code -->
+                        <div class="addthis_sharing_toolbox" ></div>
+                        <!--<div class="addthis_responsive_sharing"></div>-->
+                        <!-- End of addthis side sharing code -->
+
+                         <style>
+                        .tooltip{
+                            display: inline;
+                            position: relative;
+                        }
+                        .tooltip:hover:after{
+                            background: #333;
+                            background: rgba(0,0,0,.8);
+                            border-radius: 5px;
+                            bottom: 26px;
+                            color: #fff;
+                            content: attr(title);
+                            right: -100%;
+                            padding: 5px 15px;
+                            position: absolute;
+                            z-index: 98;
+                            width: 300px;
+                        }
+                        .tooltip:hover:before{
+                            border: solid;
+                            border-color: #333 transparent;
+                            border-width: 6px 6px 0 6px;
+                            bottom: 20px;
+                            content: "";
+                            left: 0%;
+                            position: absolute;
+                            z-index: 99;
+                        }
+                        </style>
+               <!-- Image photo credit -->
+                        {% if article_detail.get_image_credit %}
+                            <div style="width:100%; text-align:right;">
+                                <p style="font-size: 12px; line-height: 12px;">Photo Credit : {{article_detail.get_image_credit}}</p>
+                            </div>
+                        {% endif %}
+                        <!-- End -->
+
+                        <div class="article-header">
+                            {% if article_detail.video_type == 'uploadedvideo' %}
+                                <script src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/jwplayer-7.2.4/jwplayer.js"></script>
+                                <script>jwplayer.key="am3DkjVAGDxBaAeSaFhix8YBMg4McbgqyC7yvQ==";</script>
+                                <!-- IMA sdk -->
+                                <script src="//s0.2mdn.net/instream/html5/ima3.js"></script>
+                                <!-- Flowplayer vast plugin -->
+                                <script src="//content.jwplatform.com/libraries/XeGdlzmk.js"></script>
+                                <div id="article_video_element">Loading the player...</div>
+                                <script type="text/javascript">
+                                var playerInstance = jwplayer("article_video_element");
+                                playerInstance.setup({
+                                    file: "{{article_video}}",
+                                    image: "{{article_vid_thumb}}",
+                                    width: '100%',
+				                    aspectratio: '16:9',
+                                    autostart: true,
+                                    //width: 870,
+                                    //height: 470,
+                                    title: '{{article_detail.article_title}}',
+                                    advertising: {
+                                        client: "vast",
+                                        'skipoffset':5,
+                                        schedule: {
+                                            adbreak1: {
+                                                offset: "pre",
+                                                tag: "http://xp1.zedo.com/jsc/xp2/fns.vast?n=3336&c=0&d=80&s=1&v=vast2&pu=__page-url__&ru=__referrer__&pw=__player-width__&ph=__player-height__&z=__random-number__"
+                                            }
+                                        }
+                                    }
+                                    
+                                });
+                                </script>
+                            {% else %}
+                                {% if article_all_image_count > 1 %}
+                                <!-- Jssor Slider Begin -->
+                                <!-- To move inline styles to css file/block, please specify a class name for each element. -->
+                                <div id="slider_container_{{article_detail.article_id}}" style="position: relative; top: 0px; left: 0px; height: 470px; background: #191919; overflow: hidden;">
+                                    <!-- Loading Screen -->
+                                    <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+                                        <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                                            background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;">
+                                        </div>
+                                        <div style="position: absolute; display: block; background: url({{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/loading.gif) no-repeat center center; top: 0px; left: 0px;width: 100%;height:100%;">
+                                        </div>
+                                    </div>
+
+                                    <!-- Slides Container -->
+                                    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 870px; height: 470px; overflow: hidden;">
+                                        {% for images in article_all_image %}
+                                            {% if article_detail.is_old == 1 %}
+                                                <div>
+                                                    <img u="image" src="{{images.image_url}}"/>
+                                                    {% if images.image_title %}
+                                                        <div u="thumb">{{images.image_title}}</div>
+                                                    {% endif %}
+                                                    <!--<img u="thumb" src="{{images.image_url}}"/>-->
+                                                </div>
+                                            {% else %}
+                                                 <div>
+                                                    <img u="image" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{images.photopath}}" alt="{{images.image_title}}"/>
+                                                    {% if images.image_title %}
+                                                        <div u="thumb">{{images.image_title}}</div>
+                                                    {% endif %}
+                                                    <!--<img u="thumb" src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{images.photopath}}"/>-->
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    <!--#region Thumbnail Navigator Skin Begin -->
+                                    <!-- thumbnail navigator container -->
+                                    <div u="thumbnavigator" style="position: absolute; bottom: 0px; left: 0px; height:45px; width:870px;">
+                                        <div style="filter: alpha(opacity=40); opacity:0.4; position: absolute; display: block;
+                                            background-color: #000000; top: 0px; left: 0px; width: 100%; height: 100%;">
+                                        </div>
+                                        <!-- Thumbnail Item Skin Begin -->
+                                        <div u="slides">
+                                            <div u="prototype" style="POSITION: absolute; WIDTH: 600px; HEIGHT: 45px; TOP: 0; LEFT: 0;">
+                                                <div u="thumbnailtemplate" style="font-family: verdana; font-weight: normal; POSITION: absolute; WIDTH: 100%; HEIGHT: 100%; TOP: 0; LEFT: 0; color:#fff; line-height: 45px; font-size:20px; padding-left:10px;"></div>
+                                            </div>
+                                        </div>
+                                        <!-- Thumbnail Item Skin End -->
+                                    </div>
+                                    <!--#endregion ThumbnailNavigator Skin End -->
+
+                                    <style>
+                                        .jssorb01 {
+                                            position: absolute;
+                                        }
+                                        .jssorb01 div, .jssorb01 div:hover, .jssorb01 .av {
+                                            position: absolute;
+                                            /* size of bullet elment */
+                                            width: 12px;
+                                            height: 12px;
+                                            filter: alpha(opacity=70);
+                                            opacity: .7;
+                                            overflow: hidden;
+                                            cursor: pointer;
+                                            border: #000 1px solid;
+                                        }
+                                        .jssorb01 div { background-color: gray; }
+                                        .jssorb01 div:hover, .jssorb01 .av:hover { background-color: #d3d3d3; }
+                                        .jssorb01 .av { background-color: #fff; }
+                                        .jssorb01 .dn, .jssorb01 .dn:hover { background-color: #555555; }
+                                    </style>
+
+                                    <!-- bullet navigator container -->
+                                    <div u="navigator" class="jssorb01" style="bottom: 16px; right: 10px;">
+                                        <!-- bullet navigator item prototype -->
+                                        <div u="prototype"></div>
+                                    </div>
+                                    <!--#region Arrow Navigator Skin Begin -->
+                                    <style>
+                                        .jssora05l, .jssora05r {
+                                            display: block;
+                                            position: absolute;
+                                            /* size of arrow element */
+                                            width: 40px;
+                                            height: 40px;
+                                            cursor: pointer;
+                                            background: url({{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/a17.png) no-repeat;
+                                            overflow: hidden;
+                                        }
+                                        .jssora05l { background-position: -10px -40px; }
+                                        .jssora05r { background-position: -70px -40px; }
+                                        .jssora05l:hover { background-position: -130px -40px; }
+                                        .jssora05r:hover { background-position: -190px -40px; }
+                                        .jssora05l.jssora05ldn { background-position: -250px -40px; }
+                                        .jssora05r.jssora05rdn { background-position: -310px -40px; }
+                                    </style>
+                                    <!-- Arrow Left -->
+                                    <span u="arrowleft" class="jssora05l" style="top: 158px; left: 8px;"></span>
+                                    <!-- Arrow Right -->
+                                    <span u="arrowright" class="jssora05r" style="top: 158px; right: 8px"></span>
+                                    <!--#endregion Arrow Navigator Skin End -->
+                                </div>
+                                <!-- Jssor Slider End -->
+                                   {% else %}
+                                <div style="padding:0; margin:0; position:relative; top:0; left:0;">
+                                    {% if article_detail.image_url %}
+                                    
+                                        {% if article_detail.is_old == 1 %}
+                                        
+                                    
+
+                                        <img src="{{article_detail.image_url}}" class="article-photo " alt="" />
+
+                                        <div style="position:absolute; bottom:20px; left:0; width:100%; background:#000; opacity:0.7; height:auto; margin:0;">
+
+                                                <p style="padding:5px 10px; margin:0; color:#fff; font-size:16px; text-align:left; opacity:1;">{{article_detail.image_title}}</p>
+
+                                        </div>                                                                                                                                          
+                                         
+                                    
+                                        
+                                         {% endif %}
+                                    {% else %}
+                                        {% if article_detail.photopath %}
+                                        <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{ARTICLE_IMAGE_EXTRA_LARGE_PATH}}{{article_detail.photopath}}" class="article-photo " alt="" />
+                                         <div style="position:absolute; bottom:20px; left:0; width:100%; background:#000; opacity:0.7; height:auto; margin:0;">
+
+                                                <p style="padding:5px 10px; margin:0; color:#fff; font-size:16px; text-align:left; opacity:1;">{{article_detail.image_title}}</p>
+
+                                        </div>                                                                                                                                          
+                                         
+                                        
+                                    </div>
+                                 {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                            <div class="article-meta">
+                                <div class="meta-date">
+                                    {% load tz %}
+                                    {% localtime off %}
+                                    <span class="date">{{article_detail.article_published_date|date:"d"}}</span>
+                                    <span class="month"><a href="/date/{{article_detail.article_published_date|date:'d-F-Y'}}" >{{article_detail.article_published_date|date:"F, Y"}}</a></span>
+                                    {% endlocaltime %}
+                                    <span class="author">by
+                                        <a href="/author/{{author_label}}/{{author_detail.author_name_for_url|urlencode}}-{{author_detail.author_id}}">
+                                            {{author_detail.author_name}}
+                                            {% if author_details.1 %}, {% endif %}
+                                        </a>
+                                        {% for author in author_details %}
+                                            {% if author.author_id != author_detail.author_id %}
+                                                <a href="{{author.get_absolute_url}}">
+                                                    {{author.author_name}}
+                                                    {% if author.last %}, {% endif %}
+                                                </a>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                                <div class="meta-tools">
+                                    <a href="#"><i class="fa fa-print"></i>Print this article</a>
+                                    <span><i class="fa fa-text-height"></i>Font size <span class="f-size"><a href="#font-size-down">-</a><span class="f-size-number">16</span><a href="#font-size-up">+</a></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            {% autoescape off %}
+                                {% if article_detail.video_type == 'embededvideocode' %}
+                                    <div style="width:310px; float:left; display:inline-block; margin:0 5px 5px 0;" id="video_n_ad_div">
+                                        <!-- here goes the video code -->
+                                        {{article_video}}
+                                    </div>
+                                {% endif %}
+                            {% endautoescape %}
+                            {% autoescape off %}
+                                <p>{{article_description|safe}}</p>
+                            {% endautoescape %}
+                        </div>
+
+                        <!-- Magzine title -->
+                        {% if article_detail.magazine_title %}
+                        <hr />
+                        <div>
+                            <p style="color:red;">This article was published in BW Businessworld issue dated '{{article_detail.publish_date_m}}' with cover story titled <i>'{{article_detail.magazine_title}}'</i></p>
+                        </div>
+                        {% endif %}
+                        <!-- End -->
+
+                        <!-- Disclaimer -->
+                        {% if author_detail %}
+                            {% if author_detail.author_type == 3 or author_detail.author_type == 4 %}
+                            <div>
+                                <p>Disclaimer: <i>The views expressed in the article above are those of the authors' and do not necessarily represent or reflect the views of this publishing house</i></p>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+
+                        <hr />
+
+                        <!-- Start of addthis side sharing code -->
+                        <div class="social-article">
+                            <div class="custom-title"><strong>Share this article:</strong></div>
+                            <div class="addthis_sharing_toolbox"></div>
+                        </div>
+                        <!-- End of addthis side sharing code -->
+
+                       
+
+                       
+                       
+                        <div class="tag-cloud">
+                            <div class="custom-title"><strong>Tags assigned to this article:</strong></div>
+                            {% for tag in article_tags %}
+                            <a href="/tags/{{tag.title_for_url|urlencode}}-{{tag.tag_id}}/">{{tag.tag_name}}</a>
+                            {% endfor %}
+                        </div>
+
+                        <hr />
+                        <div>
+                            <!--Start NLPCaptcha Embed Code -->
+                            <script type="text/javascript">
+                                var NLPOptions = {
+
+                                    key:'5c2c4ba7a2d943c0291b3d099f93e851', // PUBLISHER_KEY
+
+                                    komentbox_page_identifier: '', // to identify the current page, If identifier is undefined, the komentbox_page_url will be used
+
+                                    komentbox_page_url: 'http://businessworld.in/article/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}', // URL of the current page. If undefined, will take the window.location.href. This URL is used to look up or create a thread if identifier is undefined
+
+                                    komentbox_page_title: '' // the title of the current page, If undefined, will use the <title> attribute of the page
+                                };
+
+                            </script>
+                            <script type="text/javascript" src="http://komentbox.nlpcaptcha.in/js/comments.js"></script>
+                            <!--End NLPCaptcha Embed Code -->
+                            <!--<p style="color:#353535; font-size: 16px; font-weight: bold;">
+                                To comment on this article and discuss it with BW Readers
+                                <a style="background: #F45881; color: #fff; padding: 1%; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="/article/comments/{{article_detail.title_for_url|urlencode}}/{{article_detail.article_published_date|date:'d-m-Y'}}-{{article_detail.article_id}}">Click Here!</a>
+                            </p>-->
+                        </div>
+                    </div>
+
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="main-banner" style="height:90px !important;">
+                        <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                       <!-- Ad Slot 4 tag: --> 
+                        <!-- begin ZEDO for channel: ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                        <div id="zt_249046_4" style="display:show"> 
+                        <script id="zt_249046_4" language="javascript"> 
+
+                       if(typeof zmt_mtag !='undefined' && typeof zmt_mtag.zmt_render_placement !='undefined')
+                       {
+                            zmt_mtag.zmt_render_placement(p249046_4);
+                       }
+                        </script>
+                        </div>
+                        <!-- end ZEDO for channel:  ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h2>Around The World</h2>
+
+                    </div>
+                    <!-- BEGIN .block-content -->
+                    <div class="block-content item-block-1 split-stuff">
+                        <!-- Out Brain Code -->
+                        <div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="BusinessWorld"></div>
+                        <script type="text/javascript" src="http://widgets.outbrain.com/outbrain.js"></script>
+                        <!-- End -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+                
+                 <div class="paragraph-row">
+               
+                        <div class="column4" style="text-align:left;">
+                            <a style="background: #2c3e50; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="{{ previous_article.get_absolute_url }}"><i class="fa fa-arrow-circle-left"></i> Previous</a>
+
+                        </div>
+                        <div class="column4" style="text-align:center;">
+                            <a style="background: #2c3e50; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="/all-articles/?page=1">View More Articles</a>
+                        </div>
+                        <div class="column4" style="text-align:right;">
+                            <a style="background: #2c3e50; color: #fff; padding: 10px; border-radius: 2px; box-shadow: 0 -3px 0 rgba(0, 0, 0, 0.2) inset; color: #fff;" href="{{ next_article.get_absolute_url }}">Next <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                </div> 
+
+               
+            <!-- END .content-main -->
+            </div>
+
+            
+            <!-- Mini Sidebar End -->
+
+            <!-- BEGIN #sidebar -->
+            {% include 'base/sidebar.html' %}
+
+            
+            <!-- END .wrapper -->
+        </div>
+        
+        <div class="wrapper" style="margin-top:20px;">
+            <div class="article_end_border"></div>
+        </div>
+        
+          
+    
+        
+<!--    <div class="wrapper">
+        <div style="width:100%; display:none; text-align:center;"  >
+            
+        </div>
+    </div>
+<div class="wrapper">
+        <div style="width:30%; text-align:center; padding-top: 20px; float:right;" >
+            
+
+        </div>
+    <div style="width:30%; text-align:center; padding-top: 20px; float:left;" >
+            
+        </div>
+    </div>
+    <div class="wrapper">
+        <div style="width:100%; text-align:center; padding-top: 20px; padding-bottom: 20px; " >
+            
+        </div>
+    </div>-->
+
+    <!--<div id=""-->
+
+    <div id="z07ddf455-0b24-4a3a-a762-01a94d43ff23" style='display:none' ></div>
+    <script>!function(a,n,e,t,r){tagsync=e;var c=window[a];if(tagsync){var d=document.createElement("script");d.src="http://1364.tm.zedo.com/v1/f003ad5f-dde6-456d-806f-1a7415f0e083/atm.js",d.async=!0;var i=document.getElementById(n);if(null==i||"undefined"==i)return;i.parentNode.appendChild(d,i),d.onload=d.onreadystatechange=function(){var a=new zTagManager(n);a.initTagManager(n,c,this.aync,t,r)}}else document.write("<script src='http://1364.tm.zedo.com/v1/f003ad5f-dde6-456d-806f-1a7415f0e083/tm.js?data="+a+"'><"+"/script>")}("datalayer","z07ddf455-0b24-4a3a-a762-01a94d43ff23",true, 1 , 1);</script>
+
+	 <!-- slider js -->
+    <script>
+        $(window).load(function () {
+            jssor_slider1_starter = function (containerId) {
+                var _SlideshowTransitions = [
+                //Fade in L
+                    {$Duration: 1200, x: 0.3, $During: { $Left: [0.3, 0.7] }, $Easing: { $Left: $JssorEasing$.$EaseInCubic, $Opacity: $JssorEasing$.$EaseLinear }, $Opacity: 2 }
+                    ];
+
+                var options = {
+                    $AutoPlay: true,
+                    $AutoPlaySteps: 1,
+                    $AutoPlayInterval: 4000,
+                    $PauseOnHover: 1,
+
+                    $ArrowKeyNavigation: true,
+                    $SlideDuration: 500,
+                    $MinDragOffsetToSlide: 20,
+                    $SlideSpacing: 0,
+                    $DisplayPieces: 1,
+                    $ParkingPosition: 0,
+                    $UISearchMode: 1,
+                    $PlayOrientation: 1,
+                    $DragOrientation: 3,
+
+                    $SlideshowOptions: {
+                        $Class: $JssorSlideshowRunner$,
+                        $Transitions: _SlideshowTransitions,
+                        $TransitionsOrder: 1,
+                        $ShowLink: true
+                    },
+
+                    $BulletNavigatorOptions: {
+                        $Class: $JssorBulletNavigator$,
+                        $ChanceToShow: 2,
+                        $AutoCenter: 0,
+                        $Steps: 1,
+                        $Lanes: 1,
+                        $SpacingX: 10,
+                        $SpacingY: 10,
+                        $Orientation: 1
+                    },
+
+                    $ArrowNavigatorOptions: {
+                        $Class: $JssorArrowNavigator$,
+                        $ChanceToShow: 1,
+                        $AutoCenter: 2,
+                        $Steps: 1
+                    },
+                    $ThumbnailNavigatorOptions: {
+                        $Class: $JssorThumbnailNavigator$,
+                        $ChanceToShow: 2,
+                        $ActionMode: 0,
+                        $DisableDrag: true
+                    }
+                };
+
+                var jssor_slider1 = new $JssorSlider$(containerId, options);
+                //responsive code begin
+                //you can remove responsive code if you don't want the slider scales while window resizes
+                function ScaleSlider() {
+                    var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
+                    if (parentWidth)
+                        jssor_slider1.$ScaleWidth(Math.max(Math.min(parentWidth, 870), 300));
+                    else
+                        $Jssor$.$Delay(ScaleSlider, 30);
+                }
+
+                ScaleSlider();
+                $Jssor$.$AddEvent(window, "load", ScaleSlider);
+
+                $Jssor$.$AddEvent(window, "resize", $Jssor$.$WindowResizeFilter(window, ScaleSlider));
+                $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
+                //responsive code end
+            }
+            if ($("#slider_container_{{article_detail.article_id}}").length){
+                jssor_slider1_starter('slider_container_{{article_detail.article_id}}');
+            }
+
+        });
+    </script>
+    
+    <!-- End -->
+{% endblock %}

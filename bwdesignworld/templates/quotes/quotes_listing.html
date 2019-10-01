@@ -1,0 +1,48 @@
+{% extends 'base/header.html' %}
+{% block main %}
+<!-- BEGIN .wrapper -->
+<div class="wrapper">
+
+    <!-- BEGIN .content-main -->
+    <div class="content-main">
+
+        <!-- BEGIN .strict-block -->
+        <div class="strict-block">
+            <div class="block-title">
+                <h2>Quotes</h2>
+            </div>
+            <!-- BEGIN .block-content -->
+            <div class="block-content item-block-1 split-stuff blocks-3">
+                {% for quote_listings in quote_listing %}
+                <div class="item-block">
+                    <div class="item-header">
+
+                        <a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}" class="item-photo"><img class="aspect-px lazy"  data-original="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{QUOTES_IMAGE_PATH}}{{quote_listings.quotes_image}}"  alt="" /></a>
+                    </div>
+                    <div class="item-content">
+                        <h3><a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}">{{quote_listings.quote_description}}</a></h3>
+                        <div class="item-author">
+                            <a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}" class="author-photo"><img src="/static/images/avatar-1.jpg" alt="" /></a>
+                            <a href="/quotes/{{quote_listings.quote_author_name_for_url}}-{{quote_listings.quote_id}}" class="author-name">{{quote_listings.tag}}</a>
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+
+
+
+
+
+                <!-- END .block-content -->
+            </div>
+            <!-- END .strict-block -->
+        </div>
+
+        <!-- END .content-main -->
+    </div>
+
+    <!-- END .wrapper -->
+</div>
+
+<!-- BEGIN .content -->
+{% endblock %}

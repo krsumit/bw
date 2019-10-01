@@ -1,0 +1,108 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    {% load messages_tags %}
+    <div class="wrapper">
+        <!-- BEGIN .content-main -->
+        <div class="content-main with-sidebar left">
+            {% if query %}
+                <!-- Article Search list -->
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <h3 style="margin-bottom:5px;"><a href="#">You searched for: {{ query }}</a></h3>
+                    <div class="block-title">
+                        <h2>Search Results In Article For {{ query }}</h2>
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <!-- BEGIN .block-content -->
+                    <div class="blog-style">
+                        {% for result in articles.hits.hits %}
+                            <!--{{ result|get_var_arr:"_source" }}-->
+                            {% with result|get_var_arr:"_source" as result_article %}
+                                <div class="item {% if result_article.article_image %} image-small {% else %} image-no {% endif %}">
+                                    {% if result_article.article_image %}
+                                        <div class="item-header">
+                                            <a href="{{ result_article.article_url }}" class="item-photo">
+                                                <img data-original="{{ result_article.article_image }}" alt="" class="lazy" width="100%"/>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                    <div class="item-content">
+                                        <h3>
+                                            <a href="{{ result_article.article_url }}">
+                                                {{ result_article.article_title }}
+                                            </a>
+                                        </h3>
+                                        <div class="item-icons">
+                                            {% with result_article.article_published_date|change_str_to_date as article_published_date %}
+                                                <a href="/date/{{ article_published_date|date:'d-F-Y' }}">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    {{ article_published_date|date:'F d, Y' }}
+                                                </a>
+                                            {% endwith %}
+                                        </div>
+                                        <!--<div class="item-icons">
+                                            {% autoescape off %}
+                                                {{result_article.get_article_category_data}}
+                                            {% endautoescape %}
+                                        </div>-->
+                                        <p>{{ result_article.article_summary }}</p>
+                                        <a href="{{ result_article.article_url }}" class="trans-button">
+                                            <i class="fa fa-align-right"></i>Read More
+                                        </a>
+                                    </div>
+                                    <div class="clear-float"></div>
+                                </div>
+                            {% endwith %}
+                        {% empty %}
+                            <div class="coloralert" style="background-color:#b83827;">
+                                <p>Sorry! We did not find any result for your search term in this Segment.</p>
+                            </div>
+                        {% endfor %}
+
+                        <!-- Pagination -->
+                        {% if articles.hits.hits %}
+                            <div class="pagination">
+                                {% if previous_page != 0 %}<a href="?q={{ query }}&amp;page={{ previous_page }}" class="prev page-numbers">{% endif %}<i class="fa fa-caret-left"></i>{% if previous_page != 0 %}</a>{% endif %}
+
+                                {% if show_first %}
+                                    <a href="?q={{ query }}&amp;page=1" class="page-numbers">1</a>
+                                    <span class="page-numbers">...</span>
+                                {% endif %}
+
+                                {% for page in page_numbers %}
+                                    {% if forloop.counter != 1 %} | {% endif %}
+                                    <a href="?q={{ query }}&amp;page={{page}}" class="page-numbers {% if page == current_page %} current {% endif %}">{{ page }}</a>
+                                {% endfor %}
+
+                                {% if show_last %}
+                                    <span class="page-numbers">...</span>
+                                    <a href="?q={{ query }}&amp;page={{last_page}}" class="page-numbers">{{ last_page }}</a>
+                                {% endif %}
+
+                                {% if next_page < last_page %}<a href="?q={{ query }}&amp;page={{ next_page }}" class="next page-numbers">{% endif %}<i class="fa fa-caret-right"></i>{% if next_page < last_page %}</a>{% endif %}
+                            </div>
+                        {% endif %}
+                        <!-- End -->
+
+                        <!-- END .block-content -->
+                    </div>
+                    <!-- END .strict-block -->
+                </div>
+                <!-- End of Article search list -->
+            {% else %}
+                <div class="coloralert" style="background-color:#b83827;">
+                    <p>Please enter a search keyword</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- BEGIN #sidebar -->
+        {% include 'base/sidebar.html' %}
+
+    <!-- END .wrapper -->
+    </div>
+{% endblock %}

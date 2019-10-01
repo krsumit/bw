@@ -1,0 +1,30 @@
+
+/* Main Color Scheme */
+h1.page-title,
+.mini-sidebar .widget > h3,
+input[type=submit],
+#sidebar .widget > h3,
+.item-block .item-comment,
+.breaking-news .breaking-title,
+.tag-cloud a,
+#wp-calendar thead,
+#wp-calendar caption,
+.ot-jumplist .open-jumplist,
+.ot-jumplist .actual-list {
+	background-color: #2c3e50;
+}
+#wp-calendar tbody td#today {
+	/* box-shadow: inset 1px 1px 0 1px #fff, inset 1px 0 0 1px #fff, inset 1px 1px 0 3px <-CUSTOM->, inset 1px 0 0 3px <-CUSTOM->; */
+	box-shadow: inset 1px 1px 0 1px #fff, inset 1px 0 0 1px #fff, inset 1px 1px 0 3px #2c3e50, inset 1px 0 0 3px #2c3e50;
+}
+
+/* Main Menu Color */
+.header #main-menu {
+	background-color: #292929;
+}
+
+/* Background Color/Texture/Image */
+body {
+	background: #efefef;
+}
+

@@ -1,0 +1,138 @@
+{% extends 'base/header.html' %}
+{% block main %}
+<div class="paragraph-row">
+    <div class="column8">
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                     <div class="main-article">
+                        <h1 class="big_article_header">{{VideoMaster_data.video_title}}</h1>
+                        <div class="social-article">
+                            <!-- Start of addthis side sharing code -->
+                            <div class="addthis_sharing_toolbox"></div>
+                            <!-- End of addthis side sharing code -->
+                        </div>
+                          {% autoescape off %}
+                            <div style="margin-top:20px;"><p class="big_article_summary"><i>{{VideoMaster_data.video_summary}}</i></p></div>
+                        {% endautoescape %}
+                       
+                        <div class="article-header"style="border-top:1px solid #e8e8e8">
+                            <div class="article-meta">
+                                <div class="meta-date">
+                                    <span class="date">{{VideoMaster_data.created_at|date:"d"}}</span>
+                                    <span class="month">{{VideoMaster_data.created_at|date:"F, Y"}}</span>
+                                    <span class="author">by <a href="#">BW Online Bureau</a></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="article-header" style="border-top:none !important;">
+                        <!-- player skin of your choice -->
+                        <link rel="stylesheet" href="//releases.flowplayer.org/7.0.2/skin/skin.css">
+                        <!-- Flowplayer -->
+                        <script src="//releases.flowplayer.org/7.0.2/flowplayer.min.js"></script>
+
+                        <!-- load the VAST assets after the Flowplayer assets -->
+                        <!-- the IMA SDK -->
+                        <script src="//s0.2mdn.net/instream/html5/ima3.js"></script>
+                        <!-- your VAST plugin -->
+                        <script
+                            src="//releases.flowplayer.org/vast/businessworld.in/vast.min.js">
+                        </script>
+                        <style>
+                            #article_video_element{
+                                width:100%;
+                                background: #000 url({{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{MASTER_VIDEO_IMAGE_PATH}}{{VideoMaster_data.video_thumb_name}}) 0 0 no-repeat;
+                                background-size: 100%;
+                            }
+                        </style>
+                        <div id="article_video_element" data-rtmp="rtmp://s1dnkdvs72vwbt.cloudfront.net/cfx/st">
+                            <video>
+                                <source type="video/flash" src="mp4:{{MASTER_VIDEO_PATH}}{{VideoMaster_data.video_name}}">
+                            </video>
+                        </div>
+                        <script>
+                            flowplayer("#article_video_element", {
+                                // configure the VAST plugin for this player
+                                ima: {
+                                    // adverts configuration
+                                    ads: [{
+                                        // mandatory: schedule ad time
+                                        // here: 3 seconds into the video
+                                        time: 0,
+                                        // request an advert with an adTag URL
+                                        adTag: "http://googleads.g.doubleclick.net/pagead/ads?ad_type=video_text_image_flash&client=ca-video-pub-1679350600139597&description_url=http%3A%2F%2Fbusinessworld.in%2Fall-videos&channel=1262937064&hl=en&max_ad_duration=30000"
+                                    }]
+                                },
+                                splash: true,
+                                ratio: 9/16,
+                                clip: {
+                                    sources: [{
+                                        type: "video/mp4",
+                                        src:  "{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{MASTER_VIDEO_PATH}}{{VideoMaster_data.video_name}}"
+                                    }],
+                                    title: "{{VideoMaster_data.video_title}}",
+                                    rtmp: [{
+                                        url: '{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}flowplayer/flowplayer.rtmp-3.2.13.swf',
+                                    }]
+                                },
+                                analytics: "UA-9508878-1"
+                            });
+                        </script>
+                    </div>
+
+                    <div class="social-article">
+                        <!-- Start of addthis side sharing code -->
+                        <div class="addthis_sharing_toolbox"></div>
+                        <!-- End of addthis side sharing code -->
+                    </div>
+                </div>
+                  
+            
+            <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="main-banner" style="height:90px !important;">
+                        <p style="margin:0; padding:0; font-size:8px; float:right;">Advertisement</p>
+                       <!-- Ad Slot 4 tag: --> 
+                        <!-- begin ZEDO for channel: ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                        <div id="zt_249046_4" style="display:show"> 
+                        <script id="zt_249046_4" language="javascript"> 
+
+                       if(typeof zmt_mtag !='undefined' && typeof zmt_mtag.zmt_render_placement !='undefined')
+                       {
+                            zmt_mtag.zmt_render_placement(p249046_4);
+                       }
+                        </script>
+                        </div>
+                        <!-- end ZEDO for channel:  ROS_BW HR (NEW), Publisher: BW HR, Ad Dimension: Supper Banner - Secondary-728x90 --> 
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+            <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <div class="block-title">
+                        <h2>Around The World</h2>
+
+                    </div>
+                    <!-- BEGIN .block-content -->
+                    <div class="block-content item-block-1 split-stuff">
+                        <!-- Out Brain Code -->
+                        <div class="OUTBRAIN" data-widget-id="AR_1" data-ob-template="BusinessWorld"></div>
+                        <script type="text/javascript" src="http://widgets.outbrain.com/outbrain.js"></script>
+                        <!-- End -->
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+                
+                 
+            <!-- END .content-main -->
+             </div> 
+                
+            </div>
+        
+
+        <!-- BEGIN #sidebar -->
+        {% include 'base/sidebar.html' %}
+
+        <!-- END .wrapper -->
+    </div>
+{% endblock %}

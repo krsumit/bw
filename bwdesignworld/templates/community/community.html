@@ -1,0 +1,73 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    <div id="page_content_to_show">
+        <!-- BEGIN .wrapper -->
+        <div class="wrapper">
+
+            <!-- BEGIN .content-main -->
+            <div class="content-main">
+                <div class="strict-block">
+                    <div class="block-title">
+                       <h5 style="font-size:18px;">BW Communities</h5>
+                    </div>
+                </div>
+
+                <div class="strict-block">
+                    <!-- BEGIN .block-content -->
+                    <div class="item-block-4 split-stuff blocks-4">
+                        <div class="item-block">
+                            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/BW-CIO_small.jpg" height="100px" width="100%" alt="">
+                            <div class="item-content">
+                                <ul>
+                                    {% for entry in feeds_cric.entries|slice:":5"  %}
+                                        <li><a target="_blank" href="{{entry.link}}">{{entry.title}}</a>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="item-block">
+                            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/hotelier_small.jpg" height="100px" width="100%" alt="">
+                            <div class="item-content">
+                                <ul>
+                                    {% for entryed in feeds_bwh.entries|slice:":5"  %}
+                                        <li><a target="_blank" href="{{entryed.link}}">{{entryed.title}}</a>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="item-block">
+                            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static_bwhotelier/images/smart-cities_small.jpg" height="100px" width="100%" alt="">
+                            <div class="item-content">
+                                <ul>
+                                    {% for entrys in feeds_bws.entries|slice:":5"  %}
+                                        <li><a target="_blank" href="{{entrys.link}}">{{entrys.title}}</a>
+                                    {%endfor%}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!--<div class="item-block">
+                            <img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}static/images/ee_small.jpg" height="100px" width="100%" alt="">
+                            <div class="item-content">
+                                <ul>
+                                    <li><a href="#">An rebum nusquam cu duo vidit invenire mundi</a></li>
+                                    <li><a href="#">Eum in hinc inani pericula, cu quidam commune explicari vis</a></li>
+                                    <li><a href="#">Duo alii diam ut, summo timeam pericula his in, nec ad graeco</a></li>
+                                </ul>
+                            </div>
+                        </div>-->
+                        <!-- END .block-content -->
+                    </div>
+                    <!-- END .strict-block -->
+                </div>
+
+
+                <!-- END .content-main -->
+            </div>
+
+            <!-- END .wrapper -->
+        </div>
+    </div>
+{% endblock %}

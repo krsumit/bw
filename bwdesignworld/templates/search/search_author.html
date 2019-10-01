@@ -1,0 +1,78 @@
+{% extends 'base/header.html' %}
+{% block main %}
+    {% load messages_tags %}
+	<!-- BEGIN .wrapper -->
+	<div class="wrapper">
+		<!-- BEGIN .content-main -->
+		<div class="content-main with-sidebar left">
+            {% if query %}
+                <!-- BEGIN .strict-block -->
+                <div class="strict-block">
+                    <h3 style="margin-bottom:5px;"><a href="#">You searched for: {{ query }}</a></h3>
+                    <div class="block-title">
+                        <h2>Search Results In Author For {{ query }}</h2>
+                    </div>
+                </div>
+                <div class="strict-block">
+                    <div class="article-split-second" style="margin-top:0 !important; border-top:none !important;">
+                        {% for result in authors.hits.hits %}
+                            {% with result|get_var_arr:"_source" as result_author %}
+                                <div class="item" style="margin-top:10px;">
+                                    <div class="item-photo">
+                                        <a href="{{result_author.author_url}}">
+                                            <img data-original="{{result_author.author_image}}" alt="" class="lazy">
+                                        </a>
+                                    </div>
+                                    <div class="item-content">
+                                        <h3>
+                                            <a href="{{result_author.author_url}}">{{result_author.author_name}}</a>
+                                        </h3>
+                                    </div>
+                                </div>
+                            {% endwith %}
+                        {% empty %}
+                            <div class="coloralert" style="background-color:#b83827;">
+                                <p>Sorry! We did not find any result for your search term in this Segment.</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                <!-- END .strict-block -->
+                </div>
+
+                <!-- Pagination -->
+                {% if authors.hits.hits %}
+                    <div class="pagination">
+                        {% if previous_page != 0 %}<a href="?q={{ query }}&amp;page={{ previous_page }}" class="prev page-numbers">{% endif %}<i class="fa fa-caret-left"></i>{% if previous_page != 0 %}</a>{% endif %}
+
+                        {% if show_first %}
+                            <a href="?q={{ query }}&amp;page=1" class="page-numbers">1</a>
+                            <span class="page-numbers">...</span>
+                        {% endif %}
+
+                        {% for page in page_numbers %}
+                            {% if forloop.counter != 1 %} | {% endif %}
+                            <a href="?q={{ query }}&amp;page={{page}}" class="page-numbers {% if page == current_page %} current {% endif %}">{{ page }}</a>
+                        {% endfor %}
+
+                        {% if show_last %}
+                            <span class="page-numbers">...</span>
+                            <a href="?q={{ query }}&amp;page={{last_page}}" class="page-numbers">{{ last_page }}</a>
+                        {% endif %}
+
+                        {% if next_page < last_page %}<a href="?q={{ query }}&amp;page={{ next_page }}" class="next page-numbers">{% endif %}<i class="fa fa-caret-right"></i>{% if next_page < last_page %}</a>{% endif %}
+                    </div>
+                {% endif %}
+                <!-- End -->
+                <!-- END .content-main -->
+            {% else %}
+                <div class="coloralert" style="background-color:#b83827;">
+                    <p>Please enter a search keyword</p>
+                </div>
+            {% endif %}
+        </div>
+        <!-- BEGIN #sidebar -->
+        {% include 'base/sidebar.html' %}
+
+        <!-- END .wrapper -->
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base/header.html' %}
+{% block main %}
+<!-- BEGIN .wrapper -->
+<div class="wrapper">
+
+    <!-- BEGIN .content-main -->
+    <div class="content-main">
+
+        <!-- BEGIN .strict-block -->
+        <div class="strict-block">
+            <div class="block-title">
+                <h2>Photo Galleries</h2>
+                <a href="index.html" class="panel-title-right">Back to homepage</a>
+            </div>
+
+            
+
+            <!-- BEGIN .block-content -->
+            <div class="photo-gallery-grid">
+                {% for photoshoot_listings in photoshoot_listing %}
+                <div class="item">
+                    <div class="item-header" style="box-shadow: inset 0 0 0 7px #cd3920;">
+                        <a href="{{photoshoot_listings.get_absolute_url}}"><img src="{{AWS_S3_BASE_URL}}{{BUCKET_PATH}}{{PHOTOSHOOT_IMAGE_PATH}}{{photoshoot_listings.photo_shoot_photo_name}}" alt="" /></a>
+                    </div>
+                    <a href="{{photoshoot_listings.get_absolute_url}}" class="category-photo" style="color: #cd3920;">{{photoshoot_listings.photo_shoot_title}}&nbsp;&nbsp;<span><i class="fa fa-camera"></i>&nbsp;{{photoshoot_listings.counts}}</span></a>
+                    <!--<h3><a href="{{photoshoot_listings.get_absolute_url}}">{{photoshoot_listings.photo_shoot_description}}</a></h3>-->
+                </div>
+                {%endfor%}
+                
+
+               {% if photoshoot_listing.has_previous or photoshoot_listing.has_next %}
+                        <div class="pagination">
+                            {% if photoshoot_listing.has_previous %}<a href="?page={{ photoshoot_listing.previous_page_number }}" class="prev page-numbers">{% endif %}<i class="fa fa-caret-left"></i>{% if photoshoot_listing.has_previous %}</a>{% endif %}
+
+                            {% if show_first %}
+                                <a href="?page=1" class="page-numbers">1</a>
+                                <span class="page-numbers">...</span>
+                            {% endif %}
+
+                            {% for page in page_numbers %}
+                                {% if forloop.counter != 1 %} | {% endif %}
+                                <a href="?page={{page}}" class="page-numbers {% if page == photoshoot_listing.number %} current {% endif %}">{{ page }}</a>
+                            {% endfor %}
+
+                            {% if show_last %}
+                                <span class="page-numbers">...</span>
+                                <a href="?page={{ last_page }}" class="page-numbers">{{ last_page }}</a>
+                            {% endif %}
+
+                            {% if photoshoot_listing.has_next %}<a href="?page={{ photoshoot_listing.next_page_number }}" class="next page-numbers">{% endif %}<i class="fa fa-caret-right"></i>{% if photoshoot_listing.has_next %}</a>{% endif %}
+                        </div>
+                        {% endif %}
+
+                <!-- END .block-content -->
+            </div>
+
+            <!-- END .strict-block -->
+        </div>
+
+        <!-- END .content-main -->
+    </div>
+
+    <!-- END .wrapper -->
+</div>
+{% endblock %}
