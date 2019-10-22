@@ -65,7 +65,7 @@ requests==2.4.3
 rsa==3.4.2
 six==1.10.0
 uritemplate==3.0.0
-urllib3==1.9.1
+urllib3==1.24.2
 virtualenv==15.1.0
 beautifulsoup4==4.4.1
 certifi==2015.9.6.2
