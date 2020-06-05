@@ -69,7 +69,7 @@ urllib3==1.9.1
 virtualenv==15.1.0
 beautifulsoup4==4.4.1
 certifi==2015.9.6.2
-Django==1.8.4
+Django==1.11.29
 django-haystack==2.4.0
 django-htmlmin==0.8.0
 elasticsearch==1.7.0
