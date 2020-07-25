@@ -38,9 +38,9 @@ from authornewslatter import views as author_newsletter_view
 from photoshoot import views as photoshoot_view
 from libs import views as libs_view
 from businessentertainment import views as businessentertainment_view
-from masternewsletter import views as masternewsletter_view
+from mainnewsletter import views as mainnewsletter_view
 from bwdesignworld.feeds import LatestEntriesAllFeed,LatestFooterEntriesAllFeed, LatestEntriesFeed, LatestImportantFeed, LatestColumnistFeed, LatestInterviewsFeed, LatestNewsFeed, LatestWebExclusiveFeed, LatestTodaysArticleFeed, Latest20Articles,CategoryNewsHunt, CategoryFlipboard
-from mastervideo import views as mastervideo_view
+from mainvideo import views as mainvideo_view
 from bwdesignworld.feeds import StaticViewSitemap
 from bwdesignworld.sitemap import LatestTodaysitemap,LatestSponsoredpostssitemap,LatestColumnsitemap,LatestNewssitemap,LatestAuthorsitemap
 
@@ -160,7 +160,7 @@ urlpatterns = [
     url(r'^interview_articles/$',article_view.Interviews_articles),
     url(r'^business-feature-stories/$',article_view.feature_articles),
     url(r'^date/(?P<article_published_date>[\w-]+)/$',article_view.article_list_time_wise),
-    url(r'^master-newsletter/$',masternewsletter_view.master_news_letter),
+    url(r'^main-newsletter/$',mainnewsletter_view.main_news_letter),
     #url(r'^reports-generator/$',libs_view.reports_view),
     #url(r'^reports-generatorhtml/$',libs_view.reportshtml_view),
     #url(r'^reports-generatorajax/$',libs_view.reportsajax_view),
@@ -176,9 +176,9 @@ urlpatterns = [
     url(r'^magazine-issues/(?P<year>\d+)/(?P<title>[\w$.?+-]+)-(?P<magazine_id>\d+)/web-view/$',article_view.magzine_articles_listing),    
     url(r'^magazine-issues/(?P<year>\d+)/$',magazineissue_view.magazineissue_listing),
     
-    #mastervideo_view PAGE    
-    url(r'^all-videos/$',mastervideo_view.master_video_listing),
-    url(r'^video/(?P<video_title>[\w$.?!(),:\'"+-]+)/(?P<updated_at>[\w-]+)-(?P<video_id>\d+)/$',mastervideo_view.master_video_landing_page),
+    #mainvideo_view PAGE    
+    url(r'^all-videos/$',mainvideo_view.main_video_listing),
+    url(r'^video/(?P<video_title>[\w$.?!(),:\'"+-]+)/(?P<updated_at>[\w-]+)-(?P<video_id>\d+)/$',mainvideo_view.main_video_landing_page),
 
     #photoshoot PAGE
 

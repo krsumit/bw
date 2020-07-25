@@ -37,8 +37,8 @@ DEBATE_IMAGE_PATHS ='debate/featuredimage/'
 FEATURED_BOX_IMAGE_PATH ='featurebox/'
 FEATURED_BOX2_IMAGE_PATH ='featurebox2/'
 FEATURED_BOX3_IMAGE_PATH ='featurebox3/'
-VIDEO_MASTER ='videomaster/'
-VIDEO_THUMB ='mastervideothumb/'
+VIDEO_MASTER ='videomain/'
+VIDEO_THUMB ='mainvideothumb/'
 QUOTES_IMAGE='quotesimage/'
 BUCKET_PATH = ''
 AWS_S3_BASE_URL = 'http://static.businessworld.in/'
@@ -86,9 +86,9 @@ INSTALLED_APPS = (
     'community',
     'event',
     'magazineisuue',
-    'masternewsletter',
+    'mainnewsletter',
     'authornewslatter',
-    'mastervideo'
+    'mainvideo'
 )
 
 MIDDLEWARE_CLASSES = (

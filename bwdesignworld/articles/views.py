@@ -24,7 +24,7 @@ from category.models import ChannelCategory
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from bwdesignworld.utils import sidebar_data, category_jump_list, closeDbConnection
 from sponsored.models import Sponsoredposts, SponsoredpostsCategory, SponsoredpostsImages, SponsoredpostsView
-from mastervideo.models import VideoMaster
+from mainvideo.models import VideoMain
 from magazineisuue.models import Magazine
 # Create your views here.
 
@@ -66,8 +66,8 @@ def articleLanding(request, article_title, article_published_date, article_id):
 
         #video url
         if(article_detail[0].video_type == 'uploadedvideo'):
-            #video_master
-            video_uploaded = VideoMaster.objects.filter(video_id=article_detail[0].video_Id).first()
+            #video_main
+            video_uploaded = VideoMain.objects.filter(video_id=article_detail[0].video_Id).first()
             article_video = settings.AWS_S3_BASE_URL + settings.BUCKET_PATH + settings.VIDEO_MASTER + video_uploaded.video_name
             article_vid_thumb = settings.AWS_S3_BASE_URL + settings.BUCKET_PATH + settings.VIDEO_THUMB + video_uploaded.video_thumb_name
         elif(article_detail[0].video_type == 'embededvideocode'):
@@ -229,8 +229,8 @@ def articleLandingAmp(request, article_title, article_published_date, article_id
 
         #video url
         if(article_detail[0].video_type == 'uploadedvideo'):
-            #video_master
-            video_uploaded = VideoMaster.objects.filter(video_id=article_detail[0].video_Id).first()
+            #video_main
+            video_uploaded = VideoMain.objects.filter(video_id=article_detail[0].video_Id).first()
             article_video = settings.AWS_S3_BASE_URL + settings.BUCKET_PATH + settings.VIDEO_MASTER + video_uploaded.video_name
             article_vid_thumb = settings.AWS_S3_BASE_URL + settings.BUCKET_PATH + settings.VIDEO_THUMB + video_uploaded.video_thumb_name
         elif(article_detail[0].video_type == 'embededvideocode'):
