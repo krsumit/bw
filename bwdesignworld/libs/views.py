@@ -267,7 +267,7 @@ def createJsonValues(request, secret_key):
             art_elem['absolute_url'] = article.get_absolute_url()
             recent_articles_json.append(art_elem)
 
-        bwtv_articles = VideoMaster.objects.raw("SELECT * FROM video_master ORDER BY video_id DESC LIMIT 6")
+        bwtv_articles = VideoMain.objects.raw("SELECT * FROM video_main ORDER BY video_id DESC LIMIT 6")
         bwtv_articles_json = []
         for article in bwtv_articles:
             art_elem = {}

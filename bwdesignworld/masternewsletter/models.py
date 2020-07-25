@@ -6,23 +6,23 @@ from django.template.defaultfilters import date
 from django.conf import settings
 # Create your models here.
 
-class MasterNewsletter(models.Model):
+class MainNewsletter(models.Model):
     title = models.TextField()
     created_at = models.DateTimeField()
     updated_at = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'master_newsletter'
+        db_table = 'main_newsletter'
 
 
-class MasterNewsletterArticles(models.Model):
-    master_newsletter_id = models.IntegerField()
+class MainNewsletterArticles(models.Model):
+    main_newsletter_id = models.IntegerField()
     article_id = models.IntegerField()
     is_deleted = models.IntegerField()
     updated_at = models.DateTimeField()
 
     class Meta:
         managed = False
-        db_table = 'master_newsletter_articles'
+        db_table = 'main_newsletter_articles'
 

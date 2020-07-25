@@ -6,7 +6,7 @@ from django.template.defaultfilters import date
 from tags.models import ChannelTags
 from category.models import ChannelCategory
 
-class VideoMaster(models.Model):
+class VideoMain(models.Model):
     video_id = models.AutoField(primary_key=True)
     video_title = models.TextField()
     video_summary = models.TextField()
@@ -19,13 +19,13 @@ class VideoMaster(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'video_master'
+        db_table = 'video_main'
 
 
     def get_absolute_url(self):
       
-       video_master_title_for_url = re.sub('[^A-Za-z0-9]+', '-', self.video_title)
-       return '/video/'+str(video_master_title_for_url)+'/'+str(date(self.updated_at, "d-m-Y"))+'-'+str(self.video_id)
+       video_main_title_for_url = re.sub('[^A-Za-z0-9]+', '-', self.video_title)
+       return '/video/'+str(video_main_title_for_url)+'/'+str(date(self.updated_at, "d-m-Y"))+'-'+str(self.video_id)
     def photo_shoot_title_for_url(self):
         
         return re.sub('[^A-Za-z0-9]+', '-', self.video_title)
