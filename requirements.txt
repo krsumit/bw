@@ -78,4 +78,4 @@ MySQL-python==1.2.5
 pyelasticsearch==1.4
 python-memcached==1.57
 simplejson==3.8.0
-wheel==0.24.0
+wheel==0.38.1
